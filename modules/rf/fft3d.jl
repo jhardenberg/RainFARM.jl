@@ -1,0 +1,48 @@
+        function fft3d(z)
+#       function [fx,fy,ft]=fft3d(ss);
+        nss=size(z); ns=nss[1]; 
+        if(length(nss)>=3) 
+            nt=nss[3]
+	else
+	    nt=1 
+        end
+ 
+        ns2=div(ns,2); 
+        nt2=div(nt,2);
+        if((nt>1)&&(mod(nt,2)!=0))
+            z=z[:,:,1:(nt-1)];
+            nt=nt-1;
+        end
+
+        zf=abs(fft(z)/(ns*ns*nt)).^2;
+        zf0=zf;
+        zf[ns2+1,:,:]=zf0[ns2+1,:,:]/2;
+        zf[:,ns2+1,:]=zf0[:,ns2+1,:]/2;
+        if(nt>1)
+          zf[:,:,nt2+1]=zf0[:,:,nt2+1]/2;
+        end
+
+        fs=reshape(sum(zf,3),ns,ns);
+        ft=reshape(sum(sum(zf,1),2),nt,1);
+
+    fs=fftshift(fs) ;
+
+        nn=zeros(ns,1);
+        fx=zeros(ns,1);
+        for j=-ns2:ns2-1
+           for i=-ns2:ns2-1
+              k2=sqrt(i*i+j*j);
+              ik2=floor(Integer,k2+1.5);
+              if(ik2>1)
+                fx[ik2]=fx[ik2]+fs[i+ns2+1,j+ns2+1];
+                nn[ik2]=nn[ik2]+1;
+              end
+           end
+        end
+    if(nt>1)
+        ft=ft[2:nt2+1];
+    end
+        fx=fx[2:ns2+1]./nn[2:ns2+1];
+        fs=fs/nt;
+   return (fx,fs,ft)
+   end

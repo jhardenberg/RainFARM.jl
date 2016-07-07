@@ -1,0 +1,5 @@
+using PyCall
+@pyimport cdo as cdomod
+cdo=cdomod.Cdo();
+cdo[:sinfov](input="test.nc")
+
