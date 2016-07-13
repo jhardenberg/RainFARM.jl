@@ -34,6 +34,9 @@ function parse_commandline()
             help = "A reference file (e.g. the file to downscale)"
             arg_type = AbstractString
             required = true
+        "--conv", "-c"
+            action = :store_true
+            help = "conserve precipitation using convolution"
     end
 
     s.description="Create weights for RainFARM downscaling"
@@ -51,6 +54,7 @@ weightsfn=args["weights"]
 varname=args["varname"]
 pass1fn=args["pass2"]
 inweight=args["inweight"]
+fsmooth=args["conv"]
 
 println("Creating weights from file ",orofile)
 
@@ -77,13 +81,18 @@ println("Computing weights")
 write_netcdf2d("gridrf.nc",reshape(pr,ns,ns,1),lon_f,lat_f,varname,reffile)
 run(`cdo -s timmean $orofile pr_orofile_$rr.nc`)
 run(`cdo -s -f nc copy gridrf.nc gridrf_2_$rr.nc`)
-run(`cdo -s timmean $orofile pr_orofile_$rr.nc`)
-run(`cdo -s -f nc remapbil,gridrf_2_$rr.nc pr_orofile_$rr.nc pr_remap_$rr.nc`)
-run(`cdo -s gridboxmean,$nf,$nf pr_remap_$rr.nc pr_remap_gbm_$rr.nc`)
-run(`cdo -s remapnn,pr_remap_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc`)
-run(`cdo -s div pr_remap_$rr.nc pr_remap_nn_$rr.nc $weightsfn`)
-run(`rm pr_remap_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc`)
-inweight=weightsfn
+run(`cdo -s -f nc remapbil,gridrf_2_$rr.nc pr_orofile_$rr.nc pr_remap_rr.nc`)
+if(fsmooth)
+  (prr,lon,lat)=read_netcdf2d("pr_remap_rr.nc","")
+  ww=prr./aggspec(prr,ns);
+  write_netcdf2d(weightsfn,ww,lon_f,lat_f,varname,reffile)
+else
+  run(`cdo -s gridboxmean,$nf,$nf pr_remap_rr.nc pr_remap_gbm_$rr.nc`)
+  run(`cdo -s remapnn,pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc`)
+  run(`cdo -s div pr_remap_rr.nc pr_remap_nn_$rr.nc $weightsfn`)
+  run(`rm pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc`)
+  inweight=weightsfn
+end
 else
 println("Correcting weights in ",inweight)
 end

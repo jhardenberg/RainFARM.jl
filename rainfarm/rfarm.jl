@@ -37,6 +37,9 @@ function parse_commandline()
         "--global", "-g"              
             action = :store_true
             help = "conserve precipitation over full domain"
+        "--conv", "-c"              
+            action = :store_true
+            help = "conserve precipitation using convolution"
     end
 
     s.description="RainFARM downscaling: creates NENS realizations, downscaling INFILE, increasing spatial resolution by a factor NF. The slope is computed automatically unless specified. \ua0 Weights can be created with rfweights.jl"
@@ -53,6 +56,7 @@ varnc=args["varname"]
 fnbase=args["outfile"]
 sx=args["slope"]
 fglob=args["global"]
+fsmooth=args["conv"]
 
 println("Downscaling ",filenc)
 
@@ -84,7 +88,7 @@ end
 if(weightsnc!="")
 println("Using weights file ",weightsnc)
 (ww,lon_mat2,lat_mat2)=read_netcdf2d(weightsnc, varnc);
-@time rd=rainfarmn(pr, sx,nens, lon_f,lat_f,fnbase,varnc,filenc,ww,fglob=fglob);
+@time rd=rainfarmn(pr, sx,nens, lon_f,lat_f,fnbase,varnc,filenc,ww,fglob=fglob,fsmooth=fsmooth);
 else
-@time rd=rainfarmn(pr, sx,nens, lon_f,lat_f,fnbase,varnc,filenc,fglob=fglob);
+@time rd=rainfarmn(pr, sx,nens, lon_f,lat_f,fnbase,varnc,filenc,fglob=fglob,fsmooth=fsmooth);
 end

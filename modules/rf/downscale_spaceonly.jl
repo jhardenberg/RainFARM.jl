@@ -1,4 +1,4 @@
-function downscale_spaceonly(r,f,weight=1.;fglob=false)
+function downscale_spaceonly(r,f,weight=1.;fglob=false, fsmooth=false )
 
 (nas,nas)=size(r);
 (ns,ns)=size(f);
@@ -42,14 +42,21 @@ fm=fm.*weight;
 # We want the aggregated field to be the same as pa
 ii=find(isnan(r)); fm[ii]=nan;
 
-if(fglob)
-  fm=fm*mean(r)/mean(fm)
+if(fsmooth)
+  fma=aggspec(fm,nas);
+  ri=interpola(r,ns,1);
+  raa=aggspec(ri,nas);
+  fm=raa./fma.*fm; #pa=p aggregato a L0 e T0;
 else
-  fma=agg(fm,nas,1);
+#fm=mergespec_spaceonly(fm,raa,div(nas,2));
   raa=agg(r,nas,1);
+  fma=agg(fm,nas,1);
   ca=raa./fma; #pa=p aggregato a L0 e T0;
   cai=interpola(ca,ns,1);
   fm=cai.*fm;
+end
+if(fglob)
+  fm=fm*mean(r)/mean(fm)
 end
 
 return fm

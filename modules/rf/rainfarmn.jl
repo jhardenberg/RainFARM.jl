@@ -1,4 +1,4 @@
-function rainfarmn(r,slope,nens,lon,lat,fnbase,varname,filenc,weight=1.;fglob=false)
+function rainfarmn(r,slope,nens,lon,lat,fnbase,varname,filenc,weight=1.;fglob=false, fsmooth=false)
 tic()
 (nas,nas,ntime)=size(r);
 nt=1; nat=1; # This is the space_only version, downscaling nt is 1
@@ -15,7 +15,7 @@ for iens=1:nens
     if mean(r1)==0
 	rd[:,:,k]=zeros(ns,ns);
    else	
-    	fm=downscale_spaceonly(r1,f,weight,fglob=fglob);
+    	fm=downscale_spaceonly(r1,f,weight,fglob=fglob,fsmooth=fsmooth);
 	rd[:,:,k]=fm;
    end
   end

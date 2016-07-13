@@ -1,13 +1,13 @@
 __precompile__()
-
 module RainFARM
-export agg,fft3d,initmetagauss,gaussianize,metagauss
+export agg,fft3d,initmetagauss,gaussianize,metagauss,aggspec
 export mergespec_spaceonly,downscale_spaceonly,lon_lat_fini,fitslopex
 export read_netcdf2d,write_netcdf2d,rainfarmn,interpola
 
 using Interpolations, NetCDF
 
 include("rf/agg.jl")
+include("rf/aggspec.jl")
 include("rf/fft3d.jl")
 include("rf/initmetagauss.jl")
 include("rf/gaussianize.jl")
