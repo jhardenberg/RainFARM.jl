@@ -10,9 +10,19 @@ end
 
 mode=NC_NETCDF4
 
+#println("Reading ",filenc)
 ncin= NetCDF.open(filenc)
-lonatt= ncin.vars["lon"].atts
-latatt= ncin.vars["lat"].atts
+if( haskey(ncin.vars,"lon") )
+   lonatt= ncin.vars["lon"].atts
+   latatt= ncin.vars["lat"].atts
+elseif (haskey(ncin.vars,"longitude"))
+   lonatt= ncin.vars["longitude"].atts
+   latatt= ncin.vars["latitude"].atts
+else
+   println("Input reference file does not contain lon or longitude dimensional variables")
+   quit(1)
+end
+
 timeatt= ncin.vars["time"].atts
 varatt= ncin.vars[varname].atts
 tim=NetCDF.readvar(ncin,"time");

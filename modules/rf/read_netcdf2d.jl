@@ -18,13 +18,23 @@ function  read_netcdf2d(file, varname="")
  [var, lon, lat, time] = read_netcdf2d(file, VARname)
  -------------------------------------------- ==#
 
-lat=ncread(file,"lat");
-lon=ncread(file,"lon");
+nc = NetCDF.open(file, mode=NC_NOWRITE)
+if( haskey(nc.vars,"lon") )
+   lat=ncread(file,"lat");
+   lon=ncread(file,"lon");
+elseif (haskey(nc.vars,"longitude"))
+   lat=ncread(file,"latitude");
+   lon=ncread(file,"longitude");
+else
+   println("Input file does not contain lon or longitude dimensional variables")
+   quit(1)
+end
+NetCDF.close(nc)
 
 if(varname=="")
    nc = NetCDF.open( file , mode=NC_NOWRITE, readdimvar=false )
    for key in  keys(nc.vars)
-      if(key!="lon" && key!="lat" && key!="time")
+      if(key!="lon" && key!="lat" && key!="time" && key!="longitude" && key!="latitude" && key!="time_bnds" )
             varname=key
       end
    end
