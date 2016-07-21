@@ -48,5 +48,5 @@ var=ncread(file,varname);
 #end
 #lon=lon';
 #lat=lat';
-return var,lon,lat
+return var,lon,lat,varname
 end
