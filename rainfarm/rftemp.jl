@@ -77,13 +77,14 @@ latl1=lat1-dxl2
 latl2=lat2+dxl2
 println("box + buffer=",lonl1,"/",lonl2,"/",latl1,"/",latl2)
 
-println("Preparing correction ...")
 run(`cdo -s sellonlatbox,$lonl1,$lonl2,$latl1,$latl2 $fileoro orocut.nc`)
-run(`cdo -s  remapnn,orocut.nc $filein input_nn.nc`)
-(tin,lonl,latl,varname)=read_netcdf2d("input_nn.nc",varname);
 (oro,lonl2,latl2)=read_netcdf2d("orocut.nc","");
-(nx,ny,nt)=size(tin)
 
+println("Remapping input data ...")
+run(`cdo -s -b F32 remapnn,orocut.nc $filein input_nn.nc`)
+(tin,lonl,latl,varname)=read_netcdf2d("input_nn.nc",varname);
+oro=float(oro); # convert to float
+(nx,ny,nt)=size(tin)
 if(length(size(lonl0))>1)
 dxf=max(lonl2[2,1]-lonl2[1,1],lonl2[1,2]-lonl2[1,1]);
 else
@@ -93,6 +94,7 @@ end
 nf2=div(dxl/dxf,2)
 println("Smoothing radius =",nf2)
 
+println("Preparing correction ...")
 oros=smooth(oro,nf2)
 
 println("Downscaling ...")
