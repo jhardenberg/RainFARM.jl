@@ -6,7 +6,13 @@ if(length(size(lon))==1)
 else
   (nsx,nsy)=size(lon)
 end
-(ns,ns,nt)=size(var)
+if(length(size(var))==2) 
+      nt=1
+      fnotime=1
+else
+      (ns,ns,nt)=size(var)
+      fnotime=0
+end
 
 mode=NC_NETCDF4
 
@@ -23,9 +29,11 @@ else
    quit(1)
 end
 
+if(fnotime==0)
 timeatt= ncin.vars["time"].atts
-varatt= ncin.vars[varname].atts
 tim=NetCDF.readvar(ncin,"time");
+end
+varatt= ncin.vars[varname].atts
 NetCDF.close(ncin)
 
 #ncgetatt(filenc, "global", gatts)
@@ -40,7 +48,11 @@ end
 isfile(fname) ? rm(fname) : nothing
 
 if(length(size(lon))==1)
+if(fnotime==0)
 nccreate( fname, varname , "lon" , nsx, "lat", nsy, "time", tim[1:nt] ,timeatt, atts=varattr,mode=mode,t=NC_FLOAT);
+else
+nccreate( fname, varname , "lon" , nsx, "lat", nsy, atts=varattr,mode=mode,t=NC_FLOAT);
+end
 nccreate( fname, "lon" , "lon" , nsx,  atts=lonatt,mode=mode,t=NC_FLOAT);
 nccreate( fname, "lat" , "lat" , nsy,  atts=latatt,mode=mode,t=NC_FLOAT);
 else

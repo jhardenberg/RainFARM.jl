@@ -1,4 +1,4 @@
-#!/usr/local/bin/julia
+#!/usr/bin/julia
 using RainFARM
 using ArgParse
 
@@ -78,7 +78,7 @@ latl2=lat2+dxl2
 println("box + buffer=",lonl1,"/",lonl2,"/",latl1,"/",latl2)
 
 run(`cdo -s sellonlatbox,$lonl1,$lonl2,$latl1,$latl2 $fileoro orocut.nc`)
-(oro,lonl2,latl2)=read_netcdf2d("orocut.nc","");
+(oro,lonl2,latl2,oroname)=read_netcdf2d("orocut.nc","");
 
 println("Remapping input data ...")
 run(`cdo -s -b F32 remapnn,orocut.nc $filein input_nn.nc`)
@@ -97,18 +97,22 @@ println("Smoothing radius =",nf2)
 println("Preparing correction ...")
 oros=smooth(oro,nf2)
 #println("oro=",mean(oro)," oros=",mean(oros))
+oro=-(oro-oros)*lapse/1000.
+
+write_netcdf2d("orocorr_temp.nc",oro,lonl,latl,oroname,"orocut.nc")
+run(`cdo -s sellonlatbox,$lon1,$lon2,$lat1,$lat2 orocorr_temp.nc orocorr.nc `)
 
 println("Downscaling ...")
 for i=1:nt
     println("t=",i)
     tins=smooth(tin[:,:,i],nf2)
-    tin[:,:,i]=tins-(oro-oros)*lapse/1000.
+    tin[:,:,i]=tins+oro
 #println("tin=",mean(tin[:,:,i])," tins=",mean(tins))
 end
 
 write_netcdf2d("out_temp.nc",tin,lonl,latl,varname,"input_nn.nc")
 run(`cdo -s sellonlatbox,$lon1,$lon2,$lat1,$lat2 out_temp.nc $fileout `)
-run(`rm orocut.nc input_nn.nc out_temp.nc `)
+run(`rm orocut.nc input_nn.nc out_temp.nc orocorr_temp.nc `)
 
 
 
