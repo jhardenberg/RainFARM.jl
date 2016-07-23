@@ -8,8 +8,8 @@ function parse_commandline()
     @add_arg_table s begin
         "--radius", "-r"
             help = "Smoothing radius (in pixels)"
-            arg_type = Int
-            default = 0
+            arg_type = Float64
+            default = 0.
         "--lapse", "-l"
             help = "Lapse rate [K/km]"
             arg_type =  Float64
@@ -68,31 +68,33 @@ dxl=lonl0[2]-lonl0[1];
 end
 
 println("dx=",dxl)
-dxl2=dxl/2
+if(radius==0)
+    radius=dxl/2
+end
 
 #Add buffer
-lonl1=lon1-dxl2
-lonl2=lon2+dxl2
-latl1=lat1-dxl2
-latl2=lat2+dxl2
+lonl1=lon1-radius
+lonl2=lon2+radius
+latl1=lat1-radius
+latl2=lat2+radius
 println("box + buffer=",lonl1,"/",lonl2,"/",latl1,"/",latl2)
 
 run(`cdo -s sellonlatbox,$lonl1,$lonl2,$latl1,$latl2 $fileoro orocut.nc`)
 (oro,lonl2,latl2,oroname)=read_netcdf2d("orocut.nc","");
+if(length(size(lonl2))>1)
+dxf=max(lonl2[2,1]-lonl2[1,1],lonl2[1,2]-lonl2[1,1]);
+else
+dxf=lonl2[2]-lonl2[1];
+end
 
 println("Remapping input data ...")
 run(`cdo -s -b F32 remapnn,orocut.nc $filein input_nn.nc`)
 (tin,lonl,latl,varname)=read_netcdf2d("input_nn.nc",varname);
 oro=float(oro); # convert to float
 (nx,ny,nt)=size(tin)
-if(length(size(lonl0))>1)
-dxf=max(lonl2[2,1]-lonl2[1,1],lonl2[1,2]-lonl2[1,1]);
-else
-dxf=lonl2[2]-lonl2[1];
-end
 
-nf2=div(dxl/dxf,2)
-println("Smoothing radius =",nf2)
+nf2=div(radius,dxf)
+println("Smoothing radius = ",radius," = ",nf2, " pixel")
 
 println("Preparing correction ...")
 oros=smooth(oro,nf2)
