@@ -29,17 +29,16 @@ else
    println("Input file does not contain lon or longitude dimensional variables")
    quit(1)
 end
-NetCDF.close(nc)
 
 if(varname=="")
-   nc = NetCDF.open( file , mode=NC_NOWRITE, readdimvar=false )
    for key in  keys(nc.vars)
       if(key!="lon" && key!="lat" && key!="time" && key!="longitude" && key!="latitude" && key!="time_bnds" )
             varname=key
       end
    end
-   NetCDF.close(nc)
 end
+xmiss=nc.vars[varname].atts["missing_value"] 
+NetCDF.close(nc)
 
 var=ncread(file,varname);
 
@@ -48,5 +47,7 @@ var=ncread(file,varname);
 #end
 #lon=lon';
 #lat=lat';
+xmiss=convert(typeof(var[1,1,1]),xmiss)
+ii=findin(var,xmiss); var[ii]=NaN
 return var,lon,lat,varname
 end

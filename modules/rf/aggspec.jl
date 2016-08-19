@@ -1,5 +1,8 @@
 	function aggspec(zi,nas)
 
+        ii=find(isnan(zi))
+        zi[ii]=0.
+
         nss=size(zi);
         ns=nss[1];
         sdim=div(div(ns,nas),2);
@@ -22,6 +25,8 @@
            end
         end 
         zf=real(ifft(fft(mask).*fft(zi)))/sum(mask)
+	zf[ii]=NaN
+  	println(length(ii))
         return zf
    end
                 
