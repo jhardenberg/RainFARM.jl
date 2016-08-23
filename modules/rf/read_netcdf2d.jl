@@ -37,17 +37,15 @@ if(varname=="")
       end
    end
 end
-xmiss=nc.vars[varname].atts["missing_value"] 
-NetCDF.close(nc)
 
 var=ncread(file,varname);
 
-#if(size(lon,2)==1) 
-#   (lon,lat)=meshgrid(lon,lat)    
-#end
-#lon=lon';
-#lat=lat';
-xmiss=convert(typeof(var[1,1,1]),xmiss)
-ii=findin(var,xmiss); var[ii]=NaN
+if(haskey(nc.vars[varname].atts,"missing_value"))
+    xmiss=nc.vars[varname].atts["missing_value"] 
+    xmiss=convert(typeof(var[1,1,1]),xmiss)
+    ii=findin(var,xmiss); var[ii]=NaN
+end
+NetCDF.close(nc)
+
 return var,lon,lat,varname
 end
