@@ -1,7 +1,8 @@
 	function aggspec(zi,nas)
 
-        ii=find(isnan(zi))
-        zi[ii]=0.
+        iinan=find(isnan(zi))
+        iinotnan=find(~isnan(zi))
+        zi[iinan]=0.
 
         nss=size(zi);
         ns=nss[1];
@@ -24,11 +25,13 @@
                 end
            end
         end 
-        zf=real(ifft(fft(mask).*fft(zi)))/sum(mask)
-	zf[ii]=NaN
-  	println(length(ii))
+        fm=fft(mask)
+        zf=real(ifft(fm.*fft(zi)))/sum(mask)
+        if length(iinan)>0
+           zi1=deepcopy(zi)
+           zi1[iinotnan]=1.0
+           zf=zf./(real(ifft(fm.*fft(zi1)))/sum(mask))
+        end
+	zf[iinan]=NaN
         return zf
    end
-                
-
-
