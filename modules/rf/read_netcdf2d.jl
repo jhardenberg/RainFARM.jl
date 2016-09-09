@@ -40,6 +40,7 @@ end
 
 var=ncread(file,varname);
 
+var=float(var);
 if(haskey(nc.vars[varname].atts,"missing_value"))
     xmiss=nc.vars[varname].atts["missing_value"] 
     xmiss=convert(typeof(var[1,1,1]),xmiss)
