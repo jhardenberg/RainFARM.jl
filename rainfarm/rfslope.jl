@@ -1,4 +1,4 @@
-#!/usr/bin/julia
+#!/usr/bin/env julia
 using RainFARM
 using ArgParse
 
