@@ -3,6 +3,7 @@ module RainFARM
 export agg,fft3d,initmetagauss,gaussianize,metagauss,aggspec
 export mergespec_spaceonly,downscale_spaceonly,lon_lat_fini,fitslopex
 export read_netcdf2d,write_netcdf2d,rainfarmn,interpola,smooth
+export overwrite_netcdf2d
 
 using Interpolations, NetCDF
 
@@ -19,6 +20,7 @@ include("rf/lon_lat_fini.jl")
 include("rf/fitslopex.jl")
 include("rf/read_netcdf2d.jl")
 include("rf/write_netcdf2d.jl")
+include("rf/overwrite_netcdf2d.jl")
 include("rf/interpola.jl")
 include("rf/rainfarmn.jl")
 

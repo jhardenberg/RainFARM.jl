@@ -24,6 +24,9 @@ if( haskey(ncin.vars,"lon") )
 elseif (haskey(ncin.vars,"longitude"))
    lonatt= ncin.vars["longitude"].atts
    latatt= ncin.vars["latitude"].atts
+elseif (haskey(ncin.vars,"x"))
+   lonatt= ncin.vars["x"].atts
+   latatt= ncin.vars["y"].atts
 else
    println("Input reference file does not contain lon or longitude dimensional variables")
    quit(1)
