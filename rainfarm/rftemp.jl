@@ -7,7 +7,7 @@ function parse_commandline()
 
     @add_arg_table s begin
         "--radius", "-r"
-            help = "Smoothing radius (in pixels)"
+            help = "Smoothing radius (in grid units)"
             arg_type = Float64
             default = 0.
         "--lapse", "-l"
