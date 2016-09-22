@@ -79,8 +79,10 @@ latl1=lat1-radius
 latl2=lat2+radius
 println("box + buffer=",lonl1,"/",lonl2,"/",latl1,"/",latl2)
 
-run(`cdo -s sellonlatbox,$lonl1,$lonl2,$latl1,$latl2 $fileoro orocut.nc`)
-(oro,lonl2,latl2,oroname)=read_netcdf2d("orocut.nc","");
+rr=round(Int32,rand()*1000000)
+
+run(`cdo -s sellonlatbox,$lonl1,$lonl2,$latl1,$latl2 $fileoro orocut$rr.nc`)
+(oro,lonl2,latl2,oroname)=read_netcdf2d("orocut$rr.nc","");
 if(length(size(lonl2))>1)
 dxf=max(lonl2[2,1]-lonl2[1,1],lonl2[1,2]-lonl2[1,1]);
 else
@@ -88,8 +90,8 @@ dxf=lonl2[2]-lonl2[1];
 end
 
 println("Remapping input data ...")
-run(`cdo -s -b F32 remapnn,orocut.nc $filein input_nn.nc`)
-(tin,lonl,latl,varname)=read_netcdf2d("input_nn.nc",varname);
+run(`cdo -s -b F32 remapnn,orocut$rr.nc $filein input_nn$rr.nc`)
+(tin,lonl,latl,varname)=read_netcdf2d("input_nn$rr.nc",varname);
 oro=float(oro); # convert to float
 (nx,ny,nt)=size(tin)
 
@@ -101,8 +103,8 @@ oros=smooth(oro,nf2)
 #println("oro=",mean(oro)," oros=",mean(oros))
 oro=-(oro-oros)*lapse/1000.
 
-write_netcdf2d("orocorr_temp.nc",oro,lonl,latl,oroname,"orocut.nc")
-run(`cdo -s sellonlatbox,$lon1,$lon2,$lat1,$lat2 orocorr_temp.nc orocorr.nc `)
+write_netcdf2d("orocorr_temp$rr.nc",oro,lonl,latl,oroname,"orocut$rr.nc")
+run(`cdo -s sellonlatbox,$lon1,$lon2,$lat1,$lat2 orocorr_temp$rr.nc orocorr$rr.nc `)
 
 println("Downscaling ...")
 for i=1:nt
@@ -112,9 +114,9 @@ for i=1:nt
 #println("tin=",mean(tin[:,:,i])," tins=",mean(tins))
 end
 
-write_netcdf2d("out_temp.nc",tin,lonl,latl,varname,"input_nn.nc")
-run(`cdo -s sellonlatbox,$lon1,$lon2,$lat1,$lat2 out_temp.nc $fileout `)
-run(`rm orocut.nc input_nn.nc out_temp.nc orocorr_temp.nc `)
+write_netcdf2d("out_temp$rr.nc",tin,lonl,latl,varname,"input_nn$rr.nc")
+run(`cdo -s sellonlatbox,$lon1,$lon2,$lat1,$lat2 out_temp$rr.nc $fileout `)
+run(`rm orocut$rr.nc input_nn$rr.nc out_temp$rr.nc orocorr_temp$rr.nc orocorr$rr.nc`)
 
 
 
