@@ -18,11 +18,15 @@ function parse_commandline()
             help = "Input variable name (in orofile)"
             arg_type = AbstractString 
             default = "" 
-        "--coord", "-c", "--box", "-b"
+        "--coord", "--box", "-b"
             help = "Coordinates of box in which to downscale [lon1 lon2 lat1 lat2]"
  	    nargs = 4
             arg_type =  Float64
 	    default =  [ 7, 7.65, 45.35, 45.75 ]
+        "--orocoarse", "-o"
+            help = "Coarse orography of original data"
+            arg_type = AbstractString
+            default = ""
         "orofile"
             help = "The input file to use for orography"
             arg_type = AbstractString
@@ -50,6 +54,7 @@ radius=args["radius"]
 filein=args["infile"]
 fileout=args["outfile"]
 fileoro=args["orofile"]
+fileorocoarse=args["orocoarse"]
 varname=args["varname"]
 coord=args["coord"]
 
@@ -99,7 +104,13 @@ nf2=div(radius,dxf)
 println("Smoothing radius = ",radius," = ",nf2, " pixel")
 
 println("Preparing correction ...")
-oros=smooth(oro,nf2)
+if(fileorocoarse=="")
+   oros=smooth(oro,nf2)
+else
+   run(`cdo -s -b F32 remapnn,orocut.nc $fileorocoarse orocut_coarse.nc`)
+   (oroc,lonl,latl,orocname)=read_netcdf2d("orocut_coarse.nc","");
+   oros=smooth(oroc,nf2)
+end
 #println("oro=",mean(oro)," oros=",mean(oros))
 oro=-(oro-oros)*lapse/1000.
 
