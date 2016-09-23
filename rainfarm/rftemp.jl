@@ -107,9 +107,10 @@ println("Preparing correction ...")
 if(fileorocoarse=="")
    oros=smooth(oro,nf2)
 else
-   run(`cdo -s -b F32 remapnn,orocut.nc $fileorocoarse orocut_coarse.nc`)
-   (oroc,lonl,latl,orocname)=read_netcdf2d("orocut_coarse.nc","");
+   run(`cdo -s -b F32 remapnn,orocut$rr.nc $fileorocoarse orocut_coarse$rr.nc`)
+   (oroc,lonl,latl,orocname)=read_netcdf2d("orocut_coarse$rr.nc","");
    oros=smooth(oroc,nf2)
+   run(`rm orocut_coarse$rr.nc`)
 end
 #println("oro=",mean(oro)," oros=",mean(oros))
 oro=-(oro-oros)*lapse/1000.
