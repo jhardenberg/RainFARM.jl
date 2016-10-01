@@ -1,4 +1,14 @@
 #!/usr/bin/env julia
+
+# RainFARM 
+# Stochastic downscaling following 
+# D'Onofrio et al. 2014, J of Hydrometeorology 15 , 830-843 and
+# Rebora et. al 2006, JHM 7, 724 
+# Includes orographic corrections
+
+# Implementation in Julia language
+# Author: J. von Hardenberg - ISAC-CNR (2016)
+
 using RainFARM
 using ArgParse
 
@@ -9,7 +19,7 @@ function parse_commandline()
         "--slope", "-s"
             help = "spatial spectral slope"
             arg_type = Float64
-            default = 0.
+            default = 1.7
         "--nens", "-e"
             help = "number of ensemble members"
             arg_type = Int

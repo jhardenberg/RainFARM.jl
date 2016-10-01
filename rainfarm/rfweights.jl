@@ -1,4 +1,16 @@
 #!/usr/bin/env julia
+
+# RainFARM 
+# Stochastic downscaling following 
+# D'Onofrio et al. 2014, J of Hydrometeorology 15 , 830-843 and
+# Rebora et. al 2006, JHM 7, 724 
+# Includes orographic corrections
+
+# Implementation in Julia language
+# Author: J. von Hardenberg - ISAC-CNR (2016)
+
+# rfweights create weights for RainFARM downscaling
+
 using RainFARM
 using ArgParse
 
