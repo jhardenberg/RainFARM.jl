@@ -1,9 +1,9 @@
+"""
+    metagauss(f)
+
+Generate a metagaussian field multiplying field `f` with random phases.
+"""
 	function metagauss(f);
-#= g=metagauss(sx,st,nso,nto);
- Generates a metagaussian field of size ns x ns x nt
- with slopes sx and st
- this version creates an output in fourier space and does not use 
- padding =#
 
         (ns,ns,nt)=size(f);
 #	phases as fft of a gaussian noise random field

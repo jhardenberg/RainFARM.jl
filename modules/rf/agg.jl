@@ -1,3 +1,8 @@
+"""
+    agg(z,nas,nat)
+
+Aggregate field `z` to a `nas*nas*nat` array 
+"""
 function agg(zi,nas,nat)
         nss=size(zi);
         if(length(nss)>=3)

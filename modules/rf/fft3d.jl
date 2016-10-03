@@ -1,3 +1,8 @@
+"""
+    (fx,ft)=fft3d(z)
+
+Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z` 
+"""
         function fft3d(z)
 #       function [fx,fy,ft]=fft3d(ss);
         nss=size(z); ns=nss[1]; 
@@ -25,7 +30,7 @@
         fs=reshape(sum(zf,3),ns,ns);
         ft=reshape(sum(sum(zf,1),2),nt,1);
 
-    fs=fftshift(fs) ;
+        fs=fftshift(fs) ;
 
         nn=zeros(ns,1);
         fx=zeros(ns,1);
@@ -43,6 +48,6 @@
         ft=ft[2:nt2+1];
     end
         fx=fx[2:ns2+1]./nn[2:ns2+1];
-        fs=fs/nt;
-   return (fx,fs,ft)
+   #     fs=fs/nt;
+   return (fx,ft)
    end

@@ -1,10 +1,10 @@
+"""
+    f=initmetagauss(sx,st,nso,nto)
+
+Generate the amplitudes `f` for a metagaussian field of size `nso * nso * nto`
+with slopes `sx` and `st`. 
+"""
 function initmetagauss(sx,st,ns,nt);
-# f=initmetagauss(sx,st,nso,nto);
-# Generates the amplitudes f for
-# a metagaussian field of size nso x nso x nto
-# with slopes sx and st
-# no padding
-# in parts written in a funny way to spare memory
 
         sx=abs(sx);
         st=abs(st);

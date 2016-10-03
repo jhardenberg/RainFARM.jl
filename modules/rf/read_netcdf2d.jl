@@ -1,22 +1,9 @@
+"""
+    (var, lon, lat, time) = read_netcdf2d(file, varname="")
 
-
-function meshgrid{T}(vx::AbstractVector{T}, vy::AbstractVector{T})
-    m, n = length(vy), length(vx)
-    vx = reshape(vx, 1, n)
-    vy = reshape(vy, m, 1)
-    (repmat(vx, m, 1), repmat(vy, 1, n))
-end
-
-
+Read variable `varname` (optional) from netcdf `file`.
+"""
 function  read_netcdf2d(file, varname="")
-#== --------------------------------------------
- Read 2-dim (lon-lat + eventually time) netcdf file
-
- [var] = read_netcdf2d(file, VARname)
- [var, lon] = read_netcdf2d(file, VARname)
- [var, lon, lat] = read_netcdf2d(file, VARname)
- [var, lon, lat, time] = read_netcdf2d(file, VARname)
- -------------------------------------------- ==#
 
 nc = NetCDF.open(file, mode=NC_NOWRITE)
 if( haskey(nc.vars,"lon") )
@@ -53,3 +40,11 @@ NetCDF.close(nc)
 
 return var,lon,lat,varname
 end
+
+function meshgrid{T}(vx::AbstractVector{T}, vy::AbstractVector{T})
+    m, n = length(vy), length(vx)
+    vx = reshape(vx, 1, n)
+    vy = reshape(vy, m, 1)
+    (repmat(vx, m, 1), repmat(vy, 1, n))
+end
+

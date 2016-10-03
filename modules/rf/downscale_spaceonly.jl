@@ -16,9 +16,9 @@ rg=gaussianize(rs);
 g=metagauss(f);
 
 # aggiustiamo l'ampiezza di f
-(pstg,pstg2d,pstgt)=fft3d(g); 
+(pstg,pstgt)=fft3d(g); 
 pstg=pstg*((ns*ns)^2);
-(pstrg,pstrg2d,pstrgt)=fft3d(rg); 
+(pstrg,pstrgt)=fft3d(rg); 
 pstrg=pstrg*((nas*nas)^2);
 
 varg=pstg[div(nas,2)];
@@ -40,12 +40,12 @@ fm=exp(gm);
 fm=fm.*weight;
 
 # We want the aggregated field to be the same as pa
-ii=find(isnan(r)); fm[ii]=nan;
+ii=find(isnan(r)); fm[ii]=NaN;
 
 if(fsmooth)
-  fma=aggspec(fm,nas);
+  fma=smoothconv(fm,nas);
   ri=interpola(r,ns,1);
-  raa=aggspec(ri,nas);
+  raa=smoothconv(ri,nas);
   fm=raa./fma.*fm; #pa=p aggregato a L0 e T0;
 else
 #fm=mergespec_spaceonly(fm,raa,div(nas,2));

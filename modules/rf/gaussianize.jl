@@ -1,6 +1,9 @@
+"""
+    gaussianize(z)
+
+Gaussianize field `z`
+"""
 function gaussianize(z)
-#       g=gaussianize(z)
-#       Gaussianizes z
 
 (m,n)=size(z);
 nn=m*n;

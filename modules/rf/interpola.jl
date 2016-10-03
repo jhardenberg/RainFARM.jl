@@ -1,3 +1,8 @@
+"""
+    interpola(z,ns,nt)
+
+Interpolate field `z` to size `ns*ns*nt`
+"""
 	function interpola(z,ns,nt)
        
         nss=size(z);

@@ -73,13 +73,13 @@ println("Downscaling ",filenc)
 (pr,lon_mat,lat_mat)=read_netcdf2d(filenc, varnc);
 
 # Creo la griglia fine
-(lon_f, lat_f)=lon_lat_fini(lon_mat, lat_mat,nf);
+(lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf);
 
 println("Output size: ",size(lon_f))
 
 if(sx==0.) 
 # Calcolo fft3d e slope
-(fxp,fsp,ftp)=fft3d(pr);
+(fxp,ftp)=fft3d(pr);
 sx=fitslopex(fxp);
 println("Computed spatial spectral slope: ",sx)
 else

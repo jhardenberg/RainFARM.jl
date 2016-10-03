@@ -30,7 +30,7 @@ varnc=args["varname"]
 (pr,lon_mat,lat_mat)=read_netcdf2d(filenc, varnc);
 #println("Size var:", size(pr)," size lon: ",size(lon_mat)," size lat: ", size(lat_mat))
 # Calcolo fft3d e slope
-(fxp,fsp,ftp)=fft3d(pr);
+(fxp,ftp)=fft3d(pr);
 sx=fitslopex(fxp);
 #println("Computed spatial spectral slope: ",sx)
 println(sx)

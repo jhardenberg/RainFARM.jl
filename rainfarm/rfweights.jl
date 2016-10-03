@@ -78,7 +78,7 @@ if (length(nss)>=3)
     pr=pr[:,:,1]
 end
 ns=nss[1];
-(lon_f, lat_f)=lon_lat_fini(lon_mat, lat_mat,nf);
+(lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf);
 
 rr=round(Int,rand(1)*100000)
 
