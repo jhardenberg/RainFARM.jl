@@ -6,7 +6,6 @@
  padding =#
 
         (ns,ns,nt)=size(f);
-
 #	phases as fft of a gaussian noise random field
 #        ph=zeros(ns,ns,nt,'single');
 
@@ -15,6 +14,5 @@
 	ph=fft(ph);  
 	ph=ph./abs(ph); ph[1,1,1]=0;
 	ph=f.*ph;
-	
 	ph=real(ifft(ph)); 
 end
