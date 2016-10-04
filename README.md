@@ -26,11 +26,11 @@ julia (>=4.5), cdo (>=1.5)
 
 ## Installation
 
-- Install the content of this package in a directory, e.g. `/opt/julia`
-- Add the modules subdirectory to the julia search path by adding the following line to `.juliarc` in your home directory:
+- Install the content of this package in a directory, e.g. `/opt/julia/RainFARM`
+- Add the `src` subdirectory to the julia search path by adding the following line to `.juliarc` in your home directory:
 
 ```
-    push!(LOAD_PATH, "/opt/julia/modules")
+    push!(LOAD_PATH, "/opt/julia/RainFARM/src")
 ```
 
 - launch julia and do:
