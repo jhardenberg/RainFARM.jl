@@ -62,7 +62,7 @@ nf=args["nf"]
 filenc=args["infile"]
 weightsnc=args["weights"]
 nens=args["nens"]
-varnc=args["varname"]
+varname=args["varname"]
 fnbase=args["outfile"]
 sx=args["slope"]
 fglob=args["global"]
@@ -70,7 +70,7 @@ fsmooth=args["conv"]
 
 println("Downscaling ",filenc)
 
-(pr,lon_mat,lat_mat)=read_netcdf2d(filenc, varnc);
+(pr,lon_mat,lat_mat,varname)=read_netcdf2d(filenc, varname);
 
 # Creo la griglia fine
 (lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf);
@@ -86,19 +86,24 @@ else
 println("Fixed spatial spectral slope: ",sx)
 end
 
-if(varnc=="")
-   varnc="pr"
-end
+#if(varnc=="")
+#   varnc="pr"
+#end
 
 if(fglob) 
   println("Conserving only global precipitation")
 end
 
-# Downscaling
 if(weightsnc!="")
-println("Using weights file ",weightsnc)
-(ww,lon_mat2,lat_mat2)=read_netcdf2d(weightsnc, varnc);
-@time rd=rainfarmn(pr, sx,nens, lon_f,lat_f,fnbase,varnc,filenc,ww,fglob=fglob,fsmooth=fsmooth);
+    println("Using weights file ",weightsnc)
+    (ww,lon_mat2,lat_mat2)=read_netcdf2d(weightsnc, "");
 else
-@time rd=rainfarmn(pr, sx,nens, lon_f,lat_f,fnbase,varnc,filenc,fglob=fglob,fsmooth=fsmooth);
+    ww=1.
+end
+# Downscaling
+for iens=1:nens
+  @printf("Realization %d\n",iens)
+  @time rd=rainfarmn(pr, sx, nf, ww,fglob=fglob,fsmooth=fsmooth,verbose=true);
+  fname=@sprintf("%s_%04d.nc",fnbase,iens);
+  write_netcdf2d(fname,rd,lon_f,lat_f,varname,filenc)
 end
