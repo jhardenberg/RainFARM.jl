@@ -29,9 +29,9 @@ julia (>=4.5), cdo (>=1.5)
 ### Method 1 (If you have access to the bitbucket repo)
 
 Launch julia and from the REPL do
-    Pkg.clone("https://jhard@bitbucket.org/jhard/rainfarm.git")
+    Pkg.clone("https://username@bitbucket.org/jhard/rainfarm.git")
 
-This will install the package. 
+where `username` is your username. This will install the package. 
 Assuming your julia is v0.5, in `~/.julia/v0.5/rainfarm/tools` you will find the command line tools. Copy/link these to somewhere in your path in order to use them.
 
 ### Method 2 (If you received a tarball)
