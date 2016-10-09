@@ -1,4 +1,7 @@
 #!/usr/bin/env julia
+
+# Copyright (c) 2016, Jost von Hardenberg - ISAC-CNR, Italy
+
 using RainFARM
 using ArgParse
 

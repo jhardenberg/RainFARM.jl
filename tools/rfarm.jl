@@ -7,7 +7,8 @@
 # Includes orographic corrections
 
 # Implementation in Julia language
-# Author: J. von Hardenberg - ISAC-CNR (2016)
+
+# Copyright (c) 2016, Jost von Hardenberg - ISAC-CNR, Italy
 
 using RainFARM
 using ArgParse

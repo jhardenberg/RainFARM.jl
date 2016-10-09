@@ -2,9 +2,22 @@
 # - *D'Onofrio et al. 2014, J of Hydrometeorology 15 , 830-843* and
 # - *Rebora et. al 2006, JHM 7, 724* 
 # Includes orographic corrections
-
 # Implementation in Julia language
-# Author: J. von Hardenberg - ISAC-CNR (2016)
+
+# Copyright (c) 2016, Jost von Hardenberg - ISAC-CNR, Italy
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 __precompile__()
 module RainFARM
