@@ -29,6 +29,7 @@ julia (>=4.5), cdo (>=1.5)
 ### Method 1 (If you have access to the bitbucket repo)
 
 Launch julia and from the REPL do
+
     Pkg.clone("https://username@bitbucket.org/jhard/rainfarm.git")
 
 where `username` is your username. This will install the package. 
