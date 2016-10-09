@@ -53,7 +53,7 @@ Assuming your julia is v0.5, in `~/.julia/v0.5/rainfarm/tools` you will find the
 
 - test from the julia REPL calling `using RainFARM`
 
-In the `tool`subdirectory you will find the command line tools. Link or copy these to somewhere in you path in order to use them.
+In the `tool` subdirectory you will find the command line tools. Link or copy these to somewhere in you path in order to use them.
 
 ## Documentation
 
