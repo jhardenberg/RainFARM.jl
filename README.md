@@ -30,7 +30,7 @@ julia (>=4.5), cdo (>=1.5)
 
 Launch julia and from the REPL do
 
-    Pkg.clone("https://username@bitbucket.org/jhard/rainfarm.git")
+    Pkg.clone("https://bitbucket.org/jhard/rainfarm.git")
 
 where `username` is your username. This will install the package. 
 Assuming your julia is v0.5, in `~/.julia/v0.5/rainfarm/tools` you will find the command line tools. Copy/link these to somewhere in your path in order to use them.
