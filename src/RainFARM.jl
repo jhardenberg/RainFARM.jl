@@ -18,7 +18,7 @@
 # and limitations under the License.
 
 __precompile__()
-module rainfarm
+module RainFARM
 export agg,fft3d,initmetagauss,gaussianize,metagauss,smoothconv
 export mergespec_spaceonly,downscale_spaceonly,lon_lat_fine,fitslopex
 export read_netcdf2d,write_netcdf2d,rainfarmn,interpola,smooth
