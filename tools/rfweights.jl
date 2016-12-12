@@ -100,7 +100,7 @@ run(`cdo -s -f nc copy gridrf.nc gridrf_2_$rr.nc`)
 run(`cdo -s -f nc remapbil,gridrf_2_$rr.nc pr_orofile_$rr.nc pr_remap_rr.nc`)
 if(fsmooth)
   (prr,lon,lat)=read_netcdf2d("pr_remap_rr.nc","")
-  ww=prr./aggspec(prr,ns);
+  ww=prr./smoothconv(prr,ns);
   write_netcdf2d(weightsfn,ww,lon_f,lat_f,varname,reffile)
   run(`rm pr_remap_rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
 else
