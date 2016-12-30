@@ -29,6 +29,10 @@ function parse_commandline()
             help = "Subdivisions for downscaling"
             arg_type = Int
             default = 2
+        "--region", "-r", "-R"
+            help = "Indices for region to cutout imin/imax/jmin/jmax"
+            arg_type = AbstractString
+            default = "0/0/0/0"
         "--weights", "-w", "--weight"
             help = "Weights file"
             arg_type = AbstractString
@@ -68,6 +72,12 @@ fnbase=args["outfile"]
 sx=args["slope"]
 fglob=args["global"]
 fsmooth=args["conv"]
+region=args["region"]
+
+imin=parse(Int,split(region,"/")[1])
+imax=parse(Int,split(region,"/")[2])
+jmin=parse(Int,split(region,"/")[3])
+jmax=parse(Int,split(region,"/")[4])
 
 println("Downscaling ",filenc)
 
@@ -76,7 +86,28 @@ println("Downscaling ",filenc)
 # Creo la griglia fine
 (lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf);
 
-println("Output size: ",size(lon_f))
+ns=size(lon_f)
+println("Output size: ",ns)
+
+if(imin==0)
+   imin=1
+   jmin=1
+   if(length(ns)==2)
+     imax=ns[1]; jmax=ns[2];
+   else
+     imax=ns[1]; (jmax,)=size(lat_f);
+   end
+else
+   println("Cutout region: ",imin,"/",imax,"/",jmin,"/",jmax)
+end
+
+if(length(ns)==2)
+  lon_fr=lon_f[imin:imax,jmin:jmax]
+  lat_fr=lat_f[imin:imax,jmin:jmax]
+else
+  lon_fr=lon_f[imin:imax]
+  lat_fr=lat_f[jmin:jmax]
+end
 
 if(sx==0.) 
 # Calcolo fft3d e slope
@@ -106,5 +137,5 @@ for iens=1:nens
   @printf("Realization %d\n",iens)
   @time rd=rainfarmn(pr, sx, nf, ww,fglob=fglob,fsmooth=fsmooth,verbose=true);
   fname=@sprintf("%s_%04d.nc",fnbase,iens);
-  write_netcdf2d(fname,rd,lon_f,lat_f,varname,filenc)
+  write_netcdf2d(fname,rd[imin:imax,jmin:jmax],lon_fr,lat_fr,varname,filenc)
 end
