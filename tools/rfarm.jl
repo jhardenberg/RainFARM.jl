@@ -20,7 +20,7 @@ function parse_commandline()
         "--slope", "-s"
             help = "spatial spectral slope"
             arg_type = Float64
-            default = 1.7
+            default = 0.0
         "--nens", "-e"
             help = "number of ensemble members"
             arg_type = Int
