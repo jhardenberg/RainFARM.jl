@@ -18,7 +18,7 @@ NetCDF.close(ncin)
 
 varattr=Dict()
 for k in collect(keys(varatt))
-   if(k!="_FillValue") 
+   if((k!="_FillValue")&&(k!="add_offset")&&(k!="scale_factor"))
        varattr[k]=varatt[k]
    end
 end
