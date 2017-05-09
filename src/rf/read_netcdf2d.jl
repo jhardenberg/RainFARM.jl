@@ -15,6 +15,9 @@ elseif (haskey(nc.vars,"longitude"))
 elseif (haskey(nc.vars,"x"))
    lat=ncread(file,"x");
    lon=ncread(file,"y");
+elseif (haskey(nc.vars,"X"))
+   lat=ncread(file,"X");
+   lon=ncread(file,"Y");
 else
    println("Input file does not contain lon or longitude dimensional variables")
    quit(1)
@@ -22,7 +25,7 @@ end
 
 if(varname=="")
    for key in  keys(nc.vars)
-      if(key!="lon" && key!="lat" && key!="time" && key!="longitude" && key!="latitude" && key!="time_bnds" && key!="x" && key!="y"   )
+      if(key!="lon" && key!="lat" && key!="time" && key!="longitude" && key!="latitude" && key!="time_bnds" && key!="x" && key!="y" && key!="X" && key!="Y" )
             varname=key
       end
    end
