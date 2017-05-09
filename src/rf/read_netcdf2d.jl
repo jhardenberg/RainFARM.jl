@@ -13,11 +13,11 @@ elseif (haskey(nc.vars,"longitude"))
    lat=ncread(file,"latitude");
    lon=ncread(file,"longitude");
 elseif (haskey(nc.vars,"x"))
-   lat=ncread(file,"x");
-   lon=ncread(file,"y");
+   lat=ncread(file,"y");
+   lon=ncread(file,"x");
 elseif (haskey(nc.vars,"X"))
-   lat=ncread(file,"X");
-   lon=ncread(file,"Y");
+   lat=ncread(file,"Y");
+   lon=ncread(file,"X");
 else
    println("Input file does not contain lon or longitude dimensional variables")
    quit(1)

@@ -101,7 +101,7 @@ run(`cdo -s -b F32 remapnn,orocut$rr.nc $filein input_nn$rr.nc`)
 oro=float(oro); # convert to float
 (nx,ny,nt)=size(tin)
 
-nf2=div(radius,dxf)
+nf2=div(radius,abs(dxf))
 println("Smoothing radius = ",radius," = ",nf2, " pixel")
 
 println("Preparing correction ...")
