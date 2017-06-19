@@ -11,7 +11,7 @@ This version includes orographic corrections.
 
 - Rebora et. al 2006, JHM 7, 724 
 
-##Authors: 
+## Authors: 
 
 *Julia* - J. von Hardenberg - ISAC-CNR (2016)
 
@@ -19,7 +19,8 @@ This version includes orographic corrections.
 
 Based on original Matlab code following Rebora et al. 2006, developed jointly by ISAC-CNR and CIMA Foundation in 2004-2006.
 
-##Requires: 
+## Requires: 
+
 julia (>=4.5), cdo (>=1.5)
 
 *Julia packages*: Interpolations, ArgParse, NetCDF
