@@ -1,6 +1,6 @@
 # RainFARM
 
-Julia library and command-line tools implementing the RainFARM stochastic precipitation downscaling method.
+[Julia](https://julialang.org/) library and command-line tools implementing the RainFARM stochastic precipitation downscaling method.
 Adapted for climate downscaling.
 
 This version includes orographic corrections.
@@ -13,7 +13,7 @@ This version includes orographic corrections.
 
 ## Authors: 
 
-*Julia* - J. von Hardenberg - ISAC-CNR (2016)
+*Julia version* - J. von Hardenberg - ISAC-CNR (2016)
 
 *Matlab* version for climate downscaling - D. D'Onofrio and J. von Hardenberg - ISAC-CNR (2014)
 
@@ -26,6 +26,8 @@ julia (>=4.5), cdo (>=1.5)
 *Julia packages*: Interpolations, ArgParse, NetCDF
 
 ## Installation
+
+You will need an implementation of the [Julia language](https://julialang.org/) on your machine. 
 
 Launch julia and from the REPL do
 
