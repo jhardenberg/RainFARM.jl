@@ -35,7 +35,7 @@ if st==0.
 end
 gm=gm/st;
 
-fm=exp(gm);
+fm=exp.(gm);
 
 fm=fm.*weight;
 
