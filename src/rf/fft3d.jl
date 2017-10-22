@@ -49,5 +49,5 @@ Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z`
     end
         fx=fx[2:ns2+1]./nn[2:ns2+1];
    #     fs=fs/nt;
-   return (fx,ft)
+   return (fx,ft,fs)
    end
