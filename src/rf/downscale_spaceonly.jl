@@ -40,7 +40,7 @@ fm=exp(gm);
 fm=fm.*weight;
 
 # We want the aggregated field to be the same as pa
-ii=find(isnan(r)); fm[ii]=NaN;
+ii=find(isnan.(r)); fm[ii]=NaN;
 
 if(fsmooth)
   fma=smoothconv(fm,nas);

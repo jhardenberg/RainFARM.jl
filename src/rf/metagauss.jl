@@ -12,7 +12,7 @@ Generate a metagaussian field multiplying field `f` with random phases.
         ph=zeros(ns,ns,nt);
         for i=1:nt; ph[:,:,i]=(randn(ns,ns)); end;
 	ph=fft(ph);  
-	ph=ph./abs(ph); ph[1,1,1]=0;
+	ph=ph./abs.(ph); ph[1,1,1]=0;
 	ph=f.*ph;
 	ph=real(ifft(ph)); 
 end
