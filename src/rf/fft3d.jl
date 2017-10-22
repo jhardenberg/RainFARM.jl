@@ -31,6 +31,7 @@ Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z`
         ft=reshape(sum(sum(zf,1),2),nt,1);
 
         fs=fftshift(fs) ;
+        fs=fs/nt;
 
         nn=zeros(ns,1);
         fx=zeros(ns,1);
@@ -47,7 +48,6 @@ Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z`
     if(nt>1)
         ft=ft[2:nt2+1];
     end
-        fx=fx[2:ns2+1]./nn[2:ns2+1];
-   #     fs=fs/nt;
+   fx=fx[2:ns2+1]./nn[2:ns2+1];
    return (fx,ft,fs)
    end
