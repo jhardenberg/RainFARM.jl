@@ -37,7 +37,7 @@ outfile=args["outfile"]
 (pr,lon_mat,lat_mat)=read_netcdf2d(filenc, varnc);
 #println("Size var:", size(pr)," size lon: ",size(lon_mat)," size lat: ", size(lat_mat))
 # Calcolo fft3d e slope
-(fxp,ftp)=fft3d(pr);
+(fxp,ftp,fs)=fft3d(pr);
 sx=fitslopex(fxp);
 #println("Computed spatial spectral slope: ",sx)
 println(sx)
@@ -48,5 +48,19 @@ if outfile!=""
    aa=zeros(nk,2)
    aa[:,1]=k
    aa[:,2]=fxp
-   writedlm(outfile,aa)
+   fname="$outfile.s.dat"
+   writedlm(fname,aa)
+   fname="$outfile.t.dat"
+   nw=length(ftp[:])
+   w=collect(1:nw)
+   aa=zeros(nw,2)
+   aa[:,1]=w
+   aa[:,2]=ftp
+   writedlm(fname,aa)
+   fname="$outfile.2d.dat"
+   writedlm(fname,fs)
+
+#   outfile2="2d.$outfile"
+#   println(size(fs))
+#   writedlm(outfiles,fs)
 end
