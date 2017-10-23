@@ -55,9 +55,9 @@ if(fsmooth)
   fma=smoothconv(fm,nas);
   ri=interpola(r,ns,1);
   raa=smoothconv(ri,nas);
-  if(fwind)
-     fm=raa-fma+fm; #pa=p aggregato a L0 e T0;
-  else
+  if(!fwind)
+#     fm=raa-fma+fm; #pa=p aggregato a L0 e T0;
+#  else
      fm=raa./fma.*fm; #pa=p aggregato a L0 e T0;
   end
 else
