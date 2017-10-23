@@ -55,18 +55,31 @@ if(fsmooth)
   fma=smoothconv(fm,nas);
   ri=interpola(r,ns,1);
   raa=smoothconv(ri,nas);
-  fm=raa./fma.*fm; #pa=p aggregato a L0 e T0;
+  if(fwind)
+     fm=raa-fma+fm; #pa=p aggregato a L0 e T0;
+  else
+     fm=raa./fma.*fm; #pa=p aggregato a L0 e T0;
+  end
 else
 #fm=mergespec_spaceonly(fm,raa,div(nas,2));
   raa=agg(r,nas,1);
   fma=agg(fm,nas,1);
-  ca=raa./fma; #pa=p aggregato a L0 e T0;
-  cai=interpola(ca,ns,1);
-#  fm=cai.*fm;
+  if(fwind)
+    ca=raa-fma; #pa=p aggregato a L0 e T0;
+    cai=interpola(ca,ns,1);
+    fm=cai+fm;  # This is wind, additive bias correction
+  else
+    ca=raa./fma; #pa=p aggregato a L0 e T0;
+    cai=interpola(ca,ns,1);
+    fm=cai.*fm;
+  end
 end
 if(fglob)
-  fm=fm*mean(r)/mean(fm)
+  if(fwind)
+     fm=fm+mean(r)-mean(fm)
+  else
+     fm=fm*mean(r)/mean(fm)
+  end
 end
-
 return fm
 end
