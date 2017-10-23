@@ -1,4 +1,4 @@
-function downscale_spaceonly(r,f,weight=1.;fglob=false, fsmooth=false )
+function downscale_spaceonly(r,f,weight=1.;fglob=false, fsmooth=false, fwind=false )
 
 (nas,nas)=size(r);
 (ns,ns)=size(f);

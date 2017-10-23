@@ -14,7 +14,7 @@ Perform general RainFARM downscaling
 
 Author: Jost von Hardenberg (j.vonhardenberg@isac.cnr.it) - ISAC-CNR 2016
 """
-function rainfarmn(r, slope, nf, weight=1.; fglob=false, fsmooth=false, verbose=false)
+function rainfarmn(r, slope, nf, weight=1.; fglob=false, fsmooth=false, verbose=false, fwind=false)
 
 (nax,nay,ntime)=size(r,1,2,3);
 if( nax==nay)
@@ -40,7 +40,7 @@ rd=zeros(ns,ns,ntime);
     if mean(r1)==0
 	rd[:,:,k]=zeros(ns,ns);
     else	
-   	fm=downscale_spaceonly(r1,f,weight,fglob=fglob,fsmooth=fsmooth);
+   	fm=downscale_spaceonly(r1,f,weight,fglob=fglob,fsmooth=fsmooth,fwind=fwind);
 	rd[:,:,k]=fm;
     end
   end

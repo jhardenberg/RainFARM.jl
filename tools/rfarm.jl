@@ -55,6 +55,9 @@ function parse_commandline()
         "--conv", "-c"              
             action = :store_true
             help = "conserve precipitation using convolution"
+        "--wind", "-w"              
+            action = :store_true
+            help = "this is wind, not rainfall"
     end
 
     s.description="RainFARM downscaling: creates NENS realizations, downscaling INFILE, increasing spatial resolution by a factor NF. The slope is computed automatically unless specified. \ua0 Weights can be created with rfweights.jl"
@@ -72,6 +75,7 @@ fnbase=args["outfile"]
 sx=args["slope"]
 fglob=args["global"]
 fsmooth=args["conv"]
+fwind=args["wind"]
 region=args["region"]
 
 imin=parse(Int,split(region,"/")[1])
@@ -135,7 +139,7 @@ end
 # Downscaling
 for iens=1:nens
   @printf("Realization %d\n",iens)
-  @time rd=rainfarmn(pr, sx, nf, ww,fglob=fglob,fsmooth=fsmooth,verbose=true);
+  @time rd=rainfarmn(pr, sx, nf, ww,fglob=fglob,fsmooth=fsmooth,verbose=true,fwind=fwind);
   fname=@sprintf("%s_%04d.nc",fnbase,iens);
   write_netcdf2d(fname,rd[imin:imax,jmin:jmax,:],lon_fr,lat_fr,varname,filenc)
 end
