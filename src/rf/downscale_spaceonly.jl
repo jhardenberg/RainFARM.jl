@@ -26,8 +26,13 @@ pstg=pstg*((ns*ns)^2);
 (pstrg,pstrgt)=fft3d(rg); 
 pstrg=pstrg*((nas*nas)^2);
 
+if(fwind)
+varg=pstg[div(nas,2)-1]; # match spectra at fore to last wavenumber
+varrg=pstrg[div(nas,2)-1];
+else
 varg=pstg[div(nas,2)];
-varrg=pstrg[div(nas,2)];
+varrg=pstrg[div(nas,2)]; # to be explored if the -1 can be beneficial also for rainfall
+end
 
 c=varrg/varg;
 g=g*sqrt(c);
