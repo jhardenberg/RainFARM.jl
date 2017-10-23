@@ -6,11 +6,15 @@ function downscale_spaceonly(r,f,weight=1.;fglob=false, fsmooth=false, fwind=fal
 # No negative rain
 ii=find(r[:].<=0); 
 r[ii]=0;
-rs=r;
 
 # Gaussianize
 # Alternative: rg=log(rs);
-rg=gaussianize(rs); 
+
+if(fwind)
+   rg=r
+else
+   rg=gaussianize(r); 
+end
 
 # Prepare small scale random fields
 g=metagauss(f);
@@ -35,7 +39,11 @@ if st==0.
 end
 gm=gm/st;
 
-fm=exp.(gm);
+if(fwind)
+   fm=gm
+else
+   fm=exp.(gm);
+end
 
 fm=fm.*weight;
 
