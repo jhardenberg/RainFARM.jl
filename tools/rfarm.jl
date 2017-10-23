@@ -55,7 +55,7 @@ function parse_commandline()
         "--conv", "-c"              
             action = :store_true
             help = "conserve precipitation using convolution"
-        "--wind", "-w"              
+        "--wind", "-d"              
             action = :store_true
             help = "this is wind, not rainfall"
     end
