@@ -3,9 +3,7 @@ function downscale_spaceonly(r,f,weight=1.;fglob=false, fsmooth=false, fwind=fal
 (nas,nas)=size(r);
 (ns,ns)=size(f);
 
-# No negative rain
-ii=find(r[:].<=0); 
-r[ii]=0;
+
 
 # Gaussianize
 # Alternative: rg=log(rs);
@@ -13,6 +11,9 @@ r[ii]=0;
 if(fwind)
    rg=r
 else
+# No negative rain
+   ii=find(r[:].<=0); 
+   r[ii]=0;
    rg=gaussianize(r); 
 end
 
@@ -37,11 +38,11 @@ st=std(gm);
 if st==0.
    st=1.;
 end
-gm=gm/st;
 
 if(fwind)
    fm=gm
 else
+   gm=gm/st;
    fm=exp.(gm);
 end
 
@@ -61,7 +62,7 @@ else
   fma=agg(fm,nas,1);
   ca=raa./fma; #pa=p aggregato a L0 e T0;
   cai=interpola(ca,ns,1);
-  fm=cai.*fm;
+#  fm=cai.*fm;
 end
 if(fglob)
   fm=fm*mean(r)/mean(fm)

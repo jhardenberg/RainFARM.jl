@@ -53,5 +53,5 @@ end
 DFTfm=ifftshift(DFTfm);
 fm=ifft(DFTfm);
 fm=real(fm);
-
+fm=fm.*(nx/nax)^2
 end
