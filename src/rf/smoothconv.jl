@@ -7,7 +7,7 @@ Takes into account missing values.
 	function smoothconv(zi,nas)
 
         iinan=find(isnan.(zi))
-        iinotnan=find(~isnan.(zi))
+        iinotnan=find(.~isnan.(zi))
         zi[iinan]=0.
 
         nss=size(zi);
