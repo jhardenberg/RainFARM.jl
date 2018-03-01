@@ -19,7 +19,7 @@ Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z`
             nt=nt-1;
         end
 
-        zf=abs(fft(z)/(ns*ns*nt)).^2;
+        zf=abs.(fft(z)/(ns*ns*nt)).^2;
         zf0=zf;
         zf[ns2+1,:,:]=zf0[ns2+1,:,:]/2;
         zf[:,ns2+1,:]=zf0[:,ns2+1,:]/2;
