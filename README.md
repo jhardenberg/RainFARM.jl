@@ -1,4 +1,4 @@
-https://zenodo.org/badge/DOI/10.5281/zenodo.1240477.svg
+[![DOI](https://zenodo.org/badge/75199877.svg)](https://zenodo.org/badge/latestdoi/75199877)
 
 # RainFARM
 
