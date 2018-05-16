@@ -81,7 +81,7 @@ end
 ns=nss[1];
 (lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf);
 
-rr=round(Int,rand(1)*100000)
+rr=round.(Int,rand(1)*100000)
 
 println("Output size: ",size(lon_f))
 if(varname=="")

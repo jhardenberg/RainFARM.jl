@@ -85,7 +85,7 @@ latl1=lat1-radius
 latl2=lat2+radius
 println("box + buffer=",lonl1,"/",lonl2,"/",latl1,"/",latl2)
 
-rr=round(Int32,rand()*1000000)
+rr=round.(Int32,rand()*1000000)
 
 run(`cdo -s sellonlatbox,$lonl1,$lonl2,$latl1,$latl2 $fileoro orocut$rr.nc`)
 (oro,lonl2,latl2,oroname)=read_netcdf2d("orocut$rr.nc","");

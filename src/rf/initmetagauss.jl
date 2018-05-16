@@ -38,5 +38,5 @@ end
        kx[:,:,1]=0;
     end
    #  kx=kx./sqrt(sum(lin(abs(kx).^2)))*ns*ns*nt;
-   kx=kx./sqrt(sum(abs2(kx[:])))*ns*ns*nt;
+   kx=kx./sqrt(sum(abs2.(kx[:])))*ns*ns*nt;
 end

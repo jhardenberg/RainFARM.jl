@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/75199877.svg)](https://zenodo.org/badge/latestdoi/75199877)
+
 # RainFARM
 
 [Julia](https://julialang.org/) library and command-line tools implementing the RainFARM stochastic precipitation downscaling method.
