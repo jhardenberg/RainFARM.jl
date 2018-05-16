@@ -6,13 +6,13 @@ Takes into account missing values.
 """
 	function smoothconv(zi,nas)
 
-        iinan=find(isnan(zi))
-        iinotnan=find(~isnan(zi))
+        iinan=find(isnan.(zi))
+        iinotnan=find(.~isnan.(zi))
         zi[iinan]=0.
 
         nss=size(zi);
         ns=nss[1];
-        sdim=div(div(ns,nas),2);
+        sdim=div(ns,nas); # the smoothing radius is one large scale pixel wide (setting the diameter to 1 pixel is wrong)
 
         mask=zeros(ns,ns);
         for i=1:ns
