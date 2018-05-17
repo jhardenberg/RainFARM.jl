@@ -16,6 +16,10 @@ function parse_commandline()
             help = "Input variable name"
             arg_type = AbstractString
             default = ""
+        "--outfile", "-o", "--out"
+            help = "Output filename for spectrum"
+            arg_type = AbstractString
+            default = ""
     end
 
     s.description="Estimation of spatial spectral slope for RainFARM downscaling"
@@ -26,6 +30,7 @@ end
 args = parse_commandline()
 filenc=args["infile"]
 varnc=args["varname"]
+outfile=args["outfile"]
 
 #println("Estimating slope ",filenc)
 
@@ -36,3 +41,22 @@ varnc=args["varname"]
 sx=fitslopex(fxp);
 #println("Computed spatial spectral slope: ",sx)
 println(sx)
+
+if outfile!="" 
+   nk=length(fxp[:])
+   k=collect(1:nk)
+   aa=zeros(nk,2)
+   aa[:,1]=k
+   aa[:,2]=fxp
+   fname="$outfile.s.dat"
+   writedlm(fname,aa)
+   fname="$outfile.t.dat"
+   nw=length(ftp[:])
+   w=collect(1:nw)
+   aa=zeros(nw,2)
+   aa[:,1]=w
+   aa[:,2]=ftp
+   writedlm(fname,aa)
+   fname="$outfile.2d.dat"
+   writedlm(fname,fs)
+end
