@@ -47,13 +47,18 @@ end
 
 println("dx=",dxl)
 if(radius==0)
-    radius=dxl/2
+    radius=dxl
 end
 
 (tin,lonl,latl,varname)=read_netcdf2d(filein,varname);
 (nx,ny,nt)=size(tin,1,2,3)
 
-nf2=div(radius,dxl)
+if(radius>0)
+  nf2=div(radius,dxl)
+else
+  nf2=-radius
+end
+
 println("Smoothing with radius ",radius," = ",nf2, " pixel")
 
 for i=1:nt
