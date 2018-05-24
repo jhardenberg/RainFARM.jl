@@ -43,9 +43,9 @@ fm=fm.*weight;
 ii=find(isnan.(r)); fm[ii]=NaN;
 
 if(fsmooth)
-  fma=smoothconv(fm,nas);
+  fma=smoothspec(fm,nas);
   ri=interpola(r,ns,1);
-  raa=smoothconv(ri,nas);
+  raa=smoothspec(ri,nas);
   fm=raa./fma.*fm; #pa=p aggregato a L0 e T0;
 else
 #fm=mergespec_spaceonly(fm,raa,div(nas,2));
