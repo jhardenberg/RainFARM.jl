@@ -12,7 +12,7 @@ Takes into account missing values.
 
         nss=size(zi);
         ns=nss[1];
-        sdim=div(ns,nas); # the smoothing radius is one large scale pixel wide (setting the diameter to 1 pixel is wrong)
+        sdim=div(ns,nas)/2; # the smoothing sigma is half large scale pixel wide 
 
         mask=zeros(ns,ns);
         for i=1:ns
@@ -26,9 +26,7 @@ Takes into account missing values.
                   ky=j-ns-1 ;
                end
                r2=kx*kx+ky*ky;
-               if(r2<=sdim*sdim)
-                  mask[i,j]=1.0;
-                end
+               mask[i,j]=exp(-(r2/(sdim*sdim))/2);
            end
         end 
         fm=fft(mask)

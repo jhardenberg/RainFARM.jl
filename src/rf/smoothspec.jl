@@ -19,8 +19,8 @@ function smoothspec(zi,nas)
         kx=kx.^2+permutedims(kx,[2 1]).^2;
        
         zif=fft(zi); 
-        zif[kx.>(nas/2).^2]=0.0;
-        zif[kx.==(nas/2).^2]=zif[kx.==(nas/2).^2]*2.0;
+        zif[kx[:].>(nas/2).^2]=0.0;
+        zif[kx[:].==(nas/2).^2]=real(zif[kx[:].==(nas/2).^2]*2.0);
         zif=real(ifft(zif));
        
         return zif
