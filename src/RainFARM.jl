@@ -19,7 +19,7 @@
 
 __precompile__()
 module RainFARM
-export agg,fft3d,initmetagauss,gaussianize,metagauss,smoothconv
+export agg,fft3d,initmetagauss,gaussianize,metagauss,smoothconv,smoothspec
 export mergespec_spaceonly,downscale_spaceonly,lon_lat_fine,fitslopex
 export read_netcdf2d,write_netcdf2d,rainfarmn,interpola,smooth
 export overwrite_netcdf2d
@@ -28,6 +28,7 @@ using Interpolations, NetCDF
 
 include("rf/agg.jl")
 include("rf/smoothconv.jl")
+include("rf/smoothspec.jl")
 include("rf/smooth.jl")
 include("rf/fft3d.jl")
 include("rf/initmetagauss.jl")
