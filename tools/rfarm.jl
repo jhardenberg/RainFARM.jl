@@ -55,6 +55,10 @@ function parse_commandline()
         "--conv", "-c"              
             action = :store_true
             help = "conserve precipitation using convolution"
+        "--kmin", "-k"
+            help = "Minimum wavenumber"
+            arg_type = Int
+            default = 1
     end
 
     s.description="RainFARM downscaling: creates NENS realizations, downscaling INFILE, increasing spatial resolution by a factor NF. The slope is computed automatically unless specified. \ua0 Weights can be created with rfweights.jl"
@@ -73,6 +77,7 @@ sx=args["slope"]
 fglob=args["global"]
 fsmooth=args["conv"]
 region=args["region"]
+kmin=args["kmin"]
 
 imin=parse(Int,split(region,"/")[1])
 imax=parse(Int,split(region,"/")[2])
@@ -112,7 +117,7 @@ end
 if(sx==0.) 
 # Calcolo fft3d e slope
 (fxp,ftp)=fft3d(pr);
-sx=fitslopex(fxp);
+sx=fitslopex(fxp,kmin=kmin);
 println("Computed spatial spectral slope: ",sx)
 else
 println("Fixed spatial spectral slope: ",sx)

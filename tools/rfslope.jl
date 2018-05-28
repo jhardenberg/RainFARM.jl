@@ -20,6 +20,10 @@ function parse_commandline()
             help = "Output filename for spectrum"
             arg_type = AbstractString
             default = ""
+        "--kmin", "-k"
+            help = "Minimum wavenumber"
+            arg_type = Int
+            default = 1
     end
 
     s.description="Estimation of spatial spectral slope for RainFARM downscaling"
@@ -31,6 +35,7 @@ args = parse_commandline()
 filenc=args["infile"]
 varnc=args["varname"]
 outfile=args["outfile"]
+kmin=args["kmin"]
 
 #println("Estimating slope ",filenc)
 
@@ -38,7 +43,7 @@ outfile=args["outfile"]
 #println("Size var:", size(pr)," size lon: ",size(lon_mat)," size lat: ", size(lat_mat))
 # Calcolo fft3d e slope
 (fxp,ftp,fs)=fft3d(pr);
-sx=fitslopex(fxp);
+sx=fitslopex(fxp,kmin=kmin);
 #println("Computed spatial spectral slope: ",sx)
 println(sx)
 
