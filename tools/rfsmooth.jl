@@ -7,10 +7,10 @@ function parse_commandline()
     s = ArgParseSettings()
 
     @add_arg_table s begin
-        "--radius", "-r"
-            help = "Smoothing radius (in grid units)"
+        "--diameter", "-d"
+            help = "Smoothing diameter (in pixels, 2 sigma)"
             arg_type = Float64
-            default = 0.
+            default = 1.
         "--varname", "-v"
             help = "Input variable name (in orofile)"
             arg_type = AbstractString 
@@ -33,7 +33,7 @@ function parse_commandline()
 end
 
 args = parse_commandline()
-radius=args["radius"]
+diameter=args["diameter"]
 filein=args["infile"]
 fileout=args["outfile"]
 varname=args["varname"]
@@ -45,25 +45,18 @@ else
 dxl=lonl0[2]-lonl0[1];
 end
 
-println("dx=",dxl)
-if(radius==0)
-    radius=dxl
-end
-
 (tin,lonl,latl,varname)=read_netcdf2d(filein,varname);
 (nx,ny,nt)=size(tin,1,2,3)
 
-if(radius>0)
-  nf2=div(radius,dxl)
-else
-  nf2=-radius
-end
+println("dx=",dxl)
+  nas=div(nx,diameter)
 
-println("Smoothing with radius ",radius," = ",nf2, " pixel")
+  println("Smoothing with diameter ",diameter," pixel (2 sigma)")
+  println("nas=",nas)
 
 for i=1:nt
 #    println("t=",i)
-    tin[:,:,i]=smooth(tin[:,:,i],nf2)
+    tin[:,:,i]=smoothconv(tin[:,:,i],nas)
 end
 
 run(`cp $filein $fileout`)
