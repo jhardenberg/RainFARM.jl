@@ -40,7 +40,7 @@ fm=exp.(gm);
 fm=fm.*weight;
 
 # We want the aggregated field to be the same as pa
-ii=find(isnan.(r)); fm[ii]=NaN;
+ii=findall(isnan.(r)); fm[ii]=NaN;
 
 if(fglob)
   fm=fm*mean(r)/mean(fm)
