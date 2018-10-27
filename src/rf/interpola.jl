@@ -21,7 +21,7 @@ Interpolate field `z` to size `ns*ns*nt`
 	for i=1:sdim
 	 for j=1:sdim
 	  for k=1:tdim
-		zi[i+rs,j+rs,k+rt]=z;
+		zi[i.+rs,j.+rs,k.+rt]=z;
 	  end
 	 end
 	end
