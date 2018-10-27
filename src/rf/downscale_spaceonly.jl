@@ -1,5 +1,11 @@
 function downscale_spaceonly(r,f,weight=1.;fglob=false, fsmooth=false )
 
+if VERSION < v"0.7.0-DEV.2005"
+	function findall(r)
+		return find(r)
+	end
+end
+
 (nas,nas)=size(r);
 (ns,ns)=size(f);
 
@@ -61,3 +67,5 @@ end
 
 return fm
 end
+
+

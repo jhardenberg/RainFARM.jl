@@ -4,6 +4,13 @@
 Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z` 
 """
         function fft3d(z)
+
+        if VERSION < v"0.7.0-DEV.2005"
+           function sum(a;dims=1)
+              return Base.sum(a,dims);
+           end
+        end
+
 #       function [fx,fy,ft]=fft3d(ss);
         nss=size(z); ns=nss[1]; 
         if(length(nss)>=3) 

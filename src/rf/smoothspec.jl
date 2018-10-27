@@ -5,9 +5,14 @@ Smoothen field `z(ns,ns)` with a spectral method at scale `ns/nas`
 Takes into account missing values.
 """
 function smoothspec(zi,nas)
+	if VERSION < v"0.7.0-DEV.2005"
+           function findall(r)
+                return find(r)
+           end
+        end
 
-        iinan=find(isnan.(zi))
-        iinotnan=find(.~isnan.(zi))
+        iinan=findall(isnan.(zi))
+        iinotnan=findall(.~isnan.(zi))
         zi[iinan]=0.
 
         nss=size(zi);
