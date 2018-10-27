@@ -2,11 +2,11 @@
 
 # RainFARM
   
-[![Build Status](https://travis-ci.org/jhardenberg/RainFARM.jl.svg?branch=master)](https://travis-ci.org/jhardenberg/FooBar.jl)
+[![Build Status](https://travis-ci.org/jhardenberg/RainFARM.jl.svg?branch=master)](https://travis-ci.org/jhardenberg/RainFARM.jl)
 
-[![Coverage Status](https://coveralls.io/repos/jhardenberg/RainFARM.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jhardenberg/FooBar.jl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/jhardenberg/RainFARM.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jhardenberg/RainFARM.jl?branch=master)
 
-[![codecov.io](http://codecov.io/github/jhardenberg/RainFARM.jl/coverage.svg?branch=master)](http://codecov.io/github/jhardenberg/FooBar.jl?branch=master)
+[![codecov.io](http://codecov.io/github/jhardenberg/RainFARM.jl/coverage.svg?branch=master)](http://codecov.io/github/jhardenberg/RainFARM.jl?branch=master)
 
 [Julia](https://julialang.org/) library and command-line tools implementing the RainFARM stochastic precipitation downscaling method.
 Adapted for climate downscaling.
