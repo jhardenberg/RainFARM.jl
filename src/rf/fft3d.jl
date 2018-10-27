@@ -5,7 +5,7 @@ Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z`
 """
         function fft3d(z)
 
-        if VERSION < v"0.7.0-DEV.2005"
+@static        if VERSION < v"0.7.0-DEV.2005"
            function sum(a;dims=1)
               return Base.sum(a,dims);
            end
@@ -34,8 +34,8 @@ Compute spatial (`fx`) and temporal (`ft`) Fourier spectra of field `z`
           zf[:,:,nt2+1]=zf0[:,:,nt2+1]/2;
         end
 
-        fs=reshape(sum(zf,dims=3),ns,ns);
-        ft=reshape(sum(sum(zf,dims=1),dims=2),nt,1);
+@compat        fs=reshape(sum(zf,dims=3),ns,ns);
+@compat        ft=reshape(sum(sum(zf,dims=1),dims=2),nt,1);
 
         fs=fftshift(fs) ;
         fs=fs/nt;
