@@ -44,10 +44,10 @@ NetCDF.close(nc)
 return var,lon,lat,varname
 end
 
-function meshgrid{T}(vx::AbstractVector{T}, vy::AbstractVector{T})
-    m, n = length(vy), length(vx)
-    vx = reshape(vx, 1, n)
-    vy = reshape(vy, m, 1)
-    (repmat(vx, m, 1), repmat(vy, 1, n))
-end
+#function meshgrid{T}(vx::AbstractVector{T}, vy::AbstractVector{T})
+#    m, n = length(vy), length(vx)
+#    vx = reshape(vx, 1, n)
+#    vy = reshape(vy, m, 1)
+#    (repmat(vx, m, 1), repmat(vy, 1, n))
+#end
 
