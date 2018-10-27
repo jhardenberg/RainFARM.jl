@@ -5,14 +5,9 @@ Smoothen field `z(ns,ns)` with a circular kernel of diameter `ns/nas` using conv
 Takes into account missing values.
 """
 	function smoothconv(zi,nas)
-	if VERSION < v"0.7.0-DEV.2005"
-           function findall(r)
-                return find(r)
-           end
-        end
 
-        iinan=findall(isnan.(zi))
-        iinotnan=findall(.~isnan.(zi))
+        @compat iinan=findall(isnan.(zi))
+        @compat iinotnan=findall(.~isnan.(zi))
         zi[iinan]=0.
 
         nss=size(zi);

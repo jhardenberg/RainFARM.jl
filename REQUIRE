@@ -4,6 +4,6 @@ NetCDF
 ArgParse
 SparseArrays
 Printf
+Compat
 Statistics
 FFTW
-

@@ -7,7 +7,7 @@ end
 
 # write your own tests here
 
-print("Testing main RainFARM function and aggregation")
+print("Testing main RainFARM function and aggregation\n")
 nt=2; nf=8; ns=64; nas=8; 
 prf=rand(ns,ns,nt);
 prl=agg(prf,nas,nt);
