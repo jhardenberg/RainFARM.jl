@@ -19,7 +19,7 @@ function agg(zi,nas,nat)
         for i=1:sdim
            for j=1:sdim
               for k=1:tdim
-                 z=z+zi[i+rs,j+rs,k+rt];
+                 z=z+zi[i.+rs,j.+rs,k.+rt];
               end
            end
         end

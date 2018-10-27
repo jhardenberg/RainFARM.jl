@@ -16,7 +16,8 @@ Author: Jost von Hardenberg (j.vonhardenberg@isac.cnr.it) - ISAC-CNR 2016
 """
 function rainfarmn(r, slope, nf, weight=1.; fglob=false, fsmooth=false, verbose=false)
 
-(nax,nay,ntime)=size(r,1,2,3);
+(nax,nay,ntime)=size(r[:,:,:]);
+
 if( nax==nay)
    nas=nax
 else

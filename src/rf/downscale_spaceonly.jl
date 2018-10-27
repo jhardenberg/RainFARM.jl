@@ -4,8 +4,8 @@ function downscale_spaceonly(r,f,weight=1.;fglob=false, fsmooth=false )
 (ns,ns)=size(f);
 
 # No negative rain
-ii=find(r[:].<=0); 
-r[ii]=0;
+ii=findall(r[:].<=0); 
+r[ii].=0;
 rs=r;
 
 # Gaussianize
