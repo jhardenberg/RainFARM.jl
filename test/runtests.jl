@@ -12,6 +12,7 @@ print("Testing main RainFARM function and aggregation:\n")
 print("-----------------------------------------------\n")
 nt=2; nf=8; ns=64; nas=8; 
 prf=rand(ns,ns,nt);
+prf[2,2,1]=NaN;
 prl=agg(prf,nas,nt);
 ww=ones(64,64);
 print("Testing fglob=false, fsmooth=false\n")
