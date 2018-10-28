@@ -25,7 +25,7 @@ export read_netcdf2d,write_netcdf2d,rainfarmn,interpola,smooth
 export overwrite_netcdf2d
 
 using Interpolations, NetCDF, Compat, FFTW
-import Compat.Statistics, Compat.Printf, Compat.SparseArrays
+using Compat.Statistics, Compat.Printf, Compat.SparseArrays
 #if VERSION >= v"0.7.0-DEV.2005"
 #    using SparseArrays, Printf, Statistics, FFTW
 #end
