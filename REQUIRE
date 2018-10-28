@@ -2,8 +2,4 @@ julia 0.5
 Interpolations
 NetCDF
 ArgParse
-SparseArrays
-Printf
 Compat
-Statistics
-FFTW
