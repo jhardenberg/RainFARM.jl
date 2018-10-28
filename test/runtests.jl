@@ -8,11 +8,24 @@ end
 
 # write your own tests here
 
-print("Testing main RainFARM function and aggregation\n")
+print("Testing main RainFARM function and aggregation:\n")
+print("-----------------------------------------------\n")
 nt=2; nf=8; ns=64; nas=8; 
 prf=rand(ns,ns,nt);
 prl=agg(prf,nas,nt);
+ww=ones(64,64);
+print("Testing fglob=false, fsmooth=false\n")
 pr=rainfarmn(prl,1.7,nf,1.;fglob=false, fsmooth=false, verbose=false);
 pra=agg(pr,nas,nt);
-@compat eps=mean((pra-prl).^2);
-@test eps < 1e-10
+eps1=Statistics.mean((pra-prl).^2);
+@test eps1 < 1e-20
+print("Testing fglob=true, fsmooth=false, weights\n")
+pr=rainfarmn(prl,1.7,nf,ww;fglob=true, fsmooth=false, verbose=false);
+pra=agg(pr,nas,nt);
+eps1=(Statistics.mean(pra[:,:,1])-Statistics.mean(prl[:,:,1])).^2;
+@test eps1 < 1e-20
+print("Testing fglob=false, fsmooth=true\n")
+pr=rainfarmn(prl,1.7,nf,1.;fglob=false, fsmooth=true, verbose=false);
+pra=agg(pr,nas,nt);
+eps1=(Statistics.mean(pra[:,:,1])-Statistics.mean(prl[:,:,1])).^2;
+@test eps1 < 0.005

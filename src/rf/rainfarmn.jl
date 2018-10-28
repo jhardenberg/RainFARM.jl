@@ -38,7 +38,7 @@ rd=zeros(ns,ns,ntime);
     if verbose
 @compat       @printf("Frame %d\r",k)
     end
-    if mean(r1)==0
+    if Statistics.mean(r1)==0
 	rd[:,:,k]=zeros(ns,ns);
     else	
    	fm=downscale_spaceonly(r1,f,weight,fglob=fglob,fsmooth=fsmooth);

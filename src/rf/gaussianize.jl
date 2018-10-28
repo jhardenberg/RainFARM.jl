@@ -18,7 +18,7 @@ w=sort(gg);
 #ii=find(zs>0); ii=ii(1);
 #w(1:(ii-1))=w(ii);
 gr=w[rrk];
-gs=std(gr);
+gs=Statistics.std(gr);
 if gs==0
         gs=1;
 end

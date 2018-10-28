@@ -29,7 +29,7 @@ g=g*sqrt(c);
 
 gm=mergespec_spaceonly(rg,g,div(nas,2));
 
-st=std(gm);
+st=Statistics.std(gm);
 if st==0.
    st=1.;
 end
@@ -43,7 +43,7 @@ fm=fm.*weight;
 ii=findall(isnan.(r)); fm[ii].=NaN;
 
 if(fglob)
-  fm=fm*mean(r)/mean(fm)
+  fm=fm*Statistics.mean(r)/Statistics.mean(fm)
 elseif(fsmooth)
     fma=smoothconv(interpola(agg(fm,nas,1),ns,1),nas); 
  # fma=smoothconv(fm,nas);

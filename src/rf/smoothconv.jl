@@ -8,7 +8,7 @@ Takes into account missing values.
 
         @compat iinan=findall(isnan.(zi))
         @compat iinotnan=findall(.~isnan.(zi))
-        zi[iinan]=0.
+        zi[iinan].=0.
 
         nss=size(zi);
         ns=nss[1];
@@ -36,6 +36,6 @@ Takes into account missing values.
            zi1[iinotnan]=1.0
            zf=zf./(real(ifft(fm.*fft(zi1)))/sum(mask))
         end
-	zf[iinan]=NaN
+	zf[iinan].=NaN
         return zf
    end
