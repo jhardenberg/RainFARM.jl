@@ -36,7 +36,7 @@ rd=zeros(ns,ns,ntime);
   for k=1:ntime
     r1=r[:,:,k];    
     if verbose
-       @printf("Frame %d\r",k)
+@compat       @printf("Frame %d\r",k)
     end
     if mean(r1)==0
 	rd[:,:,k]=zeros(ns,ns);

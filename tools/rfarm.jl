@@ -139,8 +139,8 @@ else
 end
 # Downscaling
 for iens=1:nens
-  @printf("Realization %d\n",iens)
+@compat  @printf("Realization %d\n",iens)
   @time rd=rainfarmn(pr, sx, nf, ww,fglob=fglob,fsmooth=fsmooth,verbose=true);
-  fname=@sprintf("%s_%04d.nc",fnbase,iens);
+@compat  fname=@sprintf("%s_%04d.nc",fnbase,iens);
   write_netcdf2d(fname,rd[imin:imax,jmin:jmax,:],lon_fr,lat_fr,varname,filenc)
 end
