@@ -15,17 +15,17 @@ prf=rand(ns,ns,nt);
 prl=agg(prf,nas,nt);
 ww=ones(64,64);
 print("Testing fglob=false, fsmooth=false\n")
-pr=rainfarmn(prl,1.7,nf,1.;fglob=false, fsmooth=false, verbose=false);
+pr=rainfarm(prl,1.7,nf,1.;fglob=false, fsmooth=false, verbose=false);
 pra=agg(pr,nas,nt);
 eps1=Statistics.mean((pra-prl).^2);
 @test eps1 < 1e-20
 print("Testing fglob=true, fsmooth=false, weights\n")
-pr=rainfarmn(prl,1.7,nf,ww;fglob=true, fsmooth=false, verbose=false);
+pr=rainfarm(prl,1.7,nf,ww;fglob=true, fsmooth=false, verbose=false);
 pra=agg(pr,nas,nt);
 eps1=(Statistics.mean(pra[:,:,1])-Statistics.mean(prl[:,:,1])).^2;
 @test eps1 < 1e-20
 print("Testing fglob=false, fsmooth=true\n")
-pr=rainfarmn(prl,1.7,nf,1.;fglob=false, fsmooth=true, verbose=false);
+pr=rainfarm(prl,1.7,nf,1.;fglob=false, fsmooth=true, verbose=false);
 pra=agg(pr,nas,nt);
 eps1=(Statistics.mean(pra[:,:,1])-Statistics.mean(prl[:,:,1])).^2;
 @test eps1 < 0.005

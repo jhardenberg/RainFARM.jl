@@ -1,5 +1,5 @@
 """
-    rainfarmn(r,slope,nf,weight=1.;fglob=false, fsmooth=false, verbose=false)
+    rainfarm(r,slope,nf,weight=1.;fglob=false, fsmooth=false, verbose=false)
 
 Perform general RainFARM downscaling
 
@@ -14,7 +14,7 @@ Perform general RainFARM downscaling
 
 Author: Jost von Hardenberg (j.vonhardenberg@isac.cnr.it) - ISAC-CNR 2016
 """
-function rainfarmn(r, slope, nf, weight=1.; fglob=false, fsmooth=false, verbose=false)
+function rainfarm(r, slope, nf, weight=1.; fglob=false, fsmooth=false, verbose=false)
 
 (nax,nay,ntime)=size(r[:,:,:]);
 

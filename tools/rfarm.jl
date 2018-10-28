@@ -140,7 +140,7 @@ end
 # Downscaling
 for iens=1:nens
 @compat  @printf("Realization %d\n",iens)
-  @time rd=rainfarmn(pr, sx, nf, ww,fglob=fglob,fsmooth=fsmooth,verbose=true);
+  @time rd=rainfarm(pr, sx, nf, ww,fglob=fglob,fsmooth=fsmooth,verbose=true);
 @compat  fname=@sprintf("%s_%04d.nc",fnbase,iens);
   write_netcdf2d(fname,rd[imin:imax,jmin:jmax,:],lon_fr,lat_fr,varname,filenc)
 end
