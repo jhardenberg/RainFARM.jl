@@ -13,6 +13,7 @@
 
 using RainFARM
 using ArgParse
+using Compat
 
 function parse_commandline()
     s = ArgParseSettings()

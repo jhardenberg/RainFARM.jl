@@ -2,6 +2,7 @@
 # Copyright (c) 2016, Jost von Hardenberg - ISAC-CNR, Italy
 using RainFARM
 using ArgParse
+using Compat
 
 function parse_commandline()
     s = ArgParseSettings()
