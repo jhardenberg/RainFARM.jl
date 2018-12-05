@@ -2,7 +2,7 @@
 # Copyright (c) 2016, Jost von Hardenberg - ISAC-CNR, Italy
 using RainFARM
 using ArgParse
-using Compat
+using Compat, Compat.Printf
 
 function parse_commandline()
     s = ArgParseSettings()

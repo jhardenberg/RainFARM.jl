@@ -12,7 +12,7 @@
 
 using RainFARM
 using ArgParse
-using Compat
+using Compat, Compat.Printf
 
 function parse_commandline()
     s = ArgParseSettings()
