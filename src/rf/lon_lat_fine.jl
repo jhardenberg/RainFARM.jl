@@ -17,11 +17,11 @@ if(length(ns)==2)
   yf=(0.5+1/(2*nf)):1/nf:(nlat+0.5-1/(2*nf))
   knots=(collect(yc),collect(xc))
 
-  itplon = interpolate(knots, lon_mat, Gridded(Linear()))
-  itplat = interpolate(knots, lat_mat, Gridded(Linear()))
+  itplon = extrapolate(interpolate(knots, lon_mat, Gridded(Linear())), Line());
+  itplat = extrapolate(interpolate(knots, lat_mat, Gridded(Linear())), Line());
 
-  lon_f=itplon[yf,xf]
-  lat_f=itplat[yf,xf]
+  lon_f=itplon(collect(yf),collect(xf))
+  lat_f=itplat(collect(yf),collect(xf))
 else
   (nlat,)=size(lat_mat);
   (nlon,)=size(lon_mat);
@@ -34,11 +34,11 @@ else
   knotsx=collect(xc)
   knotsy=collect(yc)
 
-  itplon = interpolate((knotsx,), lon_mat, Gridded(Linear()))
-  itplat = interpolate((knotsy,), lat_mat, Gridded(Linear()))
+  itplon = extrapolate(interpolate((knotsx,), lon_mat, Gridded(Linear())), Line());
+  itplat = extrapolate(interpolate((knotsy,), lat_mat, Gridded(Linear())), Line());
 
-  lon_f=itplon[xf]
-  lat_f=itplat[yf]
+  lon_f=itplon(collect(xf))
+  lat_f=itplat(collect(yf))
 end
 
 return lon_f, lat_f
