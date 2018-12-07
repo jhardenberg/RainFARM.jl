@@ -24,11 +24,11 @@ export mergespec_spaceonly,downscale_spaceonly,lon_lat_fine,fitslopex
 export read_netcdf2d,write_netcdf2d,rainfarm,interpola,smooth
 export overwrite_netcdf2d
 
-using Interpolations, NetCDF, Compat, FFTW
+using Interpolations, NetCDF, Compat
 using Compat.Statistics, Compat.Printf, Compat.SparseArrays
-#if VERSION >= v"0.7.0-DEV.2005"
-#    using SparseArrays, Printf, Statistics, FFTW
-#end
+if VERSION >= v"0.7.0-DEV.2005"
+    using FFTW
+end
 
 include("rf/agg.jl")
 include("rf/smoothconv.jl")
