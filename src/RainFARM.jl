@@ -19,10 +19,10 @@
 
 __precompile__()
 module RainFARM
-export agg,fft3d,initmetagauss,gaussianize,metagauss,smoothconv,smoothspec
-export mergespec_spaceonly,downscale_spaceonly,lon_lat_fine,fitslopex
-export read_netcdf2d,write_netcdf2d,rainfarm,interpola,smooth
-export overwrite_netcdf2d
+export agg, fft3d, initmetagauss, gaussianize, metagauss, smoothconv, smoothspec
+export mergespec_spaceonly, downscale_spaceonly, lon_lat_fine, fitslopex
+export read_netcdf2d, write_netcdf2d, rainfarm, interpola, smooth
+export overwrite_netcdf2d, rfweights
 
 using Interpolations, NetCDF, Compat
 using Compat.Statistics, Compat.Printf, Compat.SparseArrays
@@ -47,5 +47,6 @@ include("rf/write_netcdf2d.jl")
 include("rf/overwrite_netcdf2d.jl")
 include("rf/interpola.jl")
 include("rf/rainfarm.jl")
+include("rf/rfweights.jl")
 
 end
