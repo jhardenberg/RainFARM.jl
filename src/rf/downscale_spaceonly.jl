@@ -40,14 +40,20 @@ fm=exp.(gm);
 fm=fm.*weight;
 
 # We want the aggregated field to be the same as pa
-ii=findall(isnan.(r)); fm[ii].=NaN;
+@compat ii=findall(isnan.(r)); fm[ii].=NaN;
 
 if(fglob)
-  fm=fm*Statistics.mean(r)/Statistics.mean(fm)
+@compat  ii=findall(.~isnan.(fm));
+    ri=interpola(r,ns,1);
+    fm=fm*Statistics.mean(ri[ii])/Statistics.mean(fm[ii])
 elseif(fsmooth)
-    fma=smoothconv(interpola(agg(fm,nas,1),ns,1),nas); 
+@compat    ii=findall(isnan.(fm));
+    fmi=interpola(agg(fm,nas,1),ns,1);
+    fmi[ii].=NaN;
+    fma=smoothconv(fmi,nas);
  # fma=smoothconv(fm,nas);
     ri=interpola(r,ns,1);
+    ri[ii].=NaN;
     raa=smoothconv(ri,nas);
     fm=raa./fma.*fm; #pa=p aggregato a L0 e T0;
 else
