@@ -33,7 +33,7 @@ Takes into account missing values.
         zf=real(ifft(fm.*fft(zi)))/sum(mask)
         if length(iinan)>0
            zi1=deepcopy(zi)
-           zi1[iinotnan]=1.0
+           zi1[iinotnan].=1.0
            zf=zf./(real(ifft(fm.*fft(zi1)))/sum(mask))
         end
 	zf[iinan].=NaN
