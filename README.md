@@ -26,6 +26,7 @@ In the `tools` subdirectory (under .julia in your home) you will find the comman
 
 ## Documentation
 
+Please see the [full documentation](http://wilma.to.isac.cnr.it/rainfarm/) for a list of all available functions.
 
 ## Scientific references
 
