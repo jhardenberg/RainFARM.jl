@@ -30,3 +30,8 @@ pr=rainfarm(prl,1.7,nf,1.;fglob=false, fsmooth=true, verbose=false);
 pra=agg(pr,nas,nt);
 eps1=(Statistics.mean(pra[:,:,1])-Statistics.mean(prl[:,:,1])).^2;
 @test eps1 < 0.005
+print("Testing fitslopex\n")
+fx=(1.:10.).^-2;
+sx=fitslopex(fx);
+eps1=abs(sx-1);
+@test eps1 < 1e-8
