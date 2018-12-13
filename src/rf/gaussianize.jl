@@ -1,7 +1,7 @@
 """
-    gaussianize(z)
+    g = gaussianize(z)
 
-Gaussianize field `z`
+Gaussianize field `z` using a sorted random sequence.
 """
 function gaussianize(z)
 

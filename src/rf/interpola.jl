@@ -1,7 +1,7 @@
 """
-    interpola(z,ns,nt)
+    zi = interpola(z,ns,nt)
 
-Interpolate field `z` to size `ns*ns*nt`
+Interpolate field `z` to size `(ns,ns,nt)` using nearest neighbors.
 """
 	function interpola(z,ns,nt)
        

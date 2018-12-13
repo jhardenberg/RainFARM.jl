@@ -1,20 +1,22 @@
 """
-    ww = rfweights(orofile, reffile, weightsfn, nf; varname="", fsmooth=false)
+    ww = rfweights(orofile, reffile, nf; weightsfn="", varname="", fsmooth=false)
 
-Perform general RainFARM downscaling
+Compute orographic weights from a fine-scale precipitation climatology file.
 
 #Arguments
 * `orofile`  : filename of input climatology
 * `reffile`  : filename of reference file (for metadata, e.g. the file to downscale)
-* 'weightsfn`: write weights to filename
 * `nf`       : refinement factor for spatial downscaling
-* `fsmooth`  : use smoothing instead of gp conservation
+* `weightsfn`: write weights to file weightsfn
 * `varname`  : variable name in climatology
+* `fsmooth`  : use smoothing instead of gp conservation
 
 #Returns
 * `ww`       : a weight matrix also saved to weightsfn
 
-Author: Jost von Hardenberg (j.vonhardenberg@isac.cnr.it) - ISAC-CNR 2018
+#Depends
+
+This function uses external system calls using the "cdo" command (https://code.mpimet.mpg.de/projects/cdo/wiki/Cdo) which needs to be available on your system.
 """
 function rfweights(orofile, reffile, nf; weightsfn="", varname="", fsmooth=false)
 

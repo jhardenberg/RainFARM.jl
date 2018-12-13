@@ -1,7 +1,7 @@
 """
-    fitslopex(fx; kmin=1)
+    sx = fitslopex(fx; kmin=1)
 
-Return spectral slope (minus 1) of spatial spectrum `fx`
+Return spectral slope (minus 1) of spatial spectrum `fx`.
 """
 	function fitslopex(fx; kmin=1)
         kmin=Int(kmin);

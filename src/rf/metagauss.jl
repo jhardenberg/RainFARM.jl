@@ -1,7 +1,7 @@
 """
-    metagauss(f)
+    fr = metagauss(f)
 
-Generate a metagaussian field multiplying field `f` with random phases.
+Generate a metagaussian field multiplying the spectralfield `f` with random phases and performing an inverse FFT transform to real space.
 """
 	function metagauss(f);
 

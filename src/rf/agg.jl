@@ -1,7 +1,7 @@
 """
-    agg(z,nas,nat)
+    za = agg(z,nas,nat)
 
-Aggregate field `z` to a `nas*nas*nat` array 
+Aggregate field `z` to an array `za` of size `(nas,nas,nat)`
 """
 function agg(zi,nas,nat)
         nss=size(zi);

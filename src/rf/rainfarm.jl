@@ -1,7 +1,7 @@
 """
     rainfarm(r,slope,nf,weight=1.;fglob=false, fsmooth=false, verbose=false)
 
-Perform general RainFARM downscaling
+Perform general RainFARM downscaling.
 
 #Arguments
 * `r`      : large-scale array to downscale
@@ -11,8 +11,6 @@ Perform general RainFARM downscaling
 * `fglob`  : conserve global average over domain
 * `fsmooth`: use smoothing instead of gp conservation
 * `verbose`: provide some progress report 
-
-Author: Jost von Hardenberg (j.vonhardenberg@isac.cnr.it) - ISAC-CNR 2016
 """
 function rainfarm(r, slope, nf, weight=1.; fglob=false, fsmooth=false, verbose=false)
 
