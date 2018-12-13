@@ -5,5 +5,7 @@ makedocs(sitename="RainFARM documentation")
 
 deploydocs(
     repo = "github.com/jhardenberg/RainFARM.jl.git",
-    versions = "v1.0.1"
+    devbranch = "master",
+    devurl = "dev",
+    versions = ["stable" => "v^", "v#.#", devurl => devurl]
 )
