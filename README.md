@@ -41,5 +41,3 @@ Please see the [full documentation](http://wilma.to.isac.cnr.it/rainfarm/) for a
 *Julia version* - J. von Hardenberg - ISAC-CNR (2016-2018)
 
 *Matlab* version for climate downscaling - D. D'Onofrio and J. von Hardenberg - ISAC-CNR (2014)
-
-Based on original Matlab code following Rebora et al. 2006, developed jointly by ISAC-CNR and CIMA Foundation in 2004-2006.
