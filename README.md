@@ -17,9 +17,10 @@ You will need an implementation of the [Julia language](https://julialang.org/) 
 
 Launch julia and from the REPL do the following to install the package
 ```
-    Pkg.clone("https://github.com/jhardenberg/RainFARM.jl")
+using Pkg
+Pkg.clone("https://github.com/jhardenberg/RainFARM.jl")
 ```
-
+(the `Pkg.add`step is only needed for Julia versions >= 0.7)
 With from the julia REPL calling `using RainFARM`
 
 In the `tools` subdirectory (under .julia in your home) you will find the command line tools. Link or copy these to somewhere in you path in order to use them.
