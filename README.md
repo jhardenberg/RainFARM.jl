@@ -38,6 +38,6 @@ Please see the [full documentation](http://wilma.to.isac.cnr.it/rainfarm/) for a
 
 ## Authors: 
 
-*Julia version* - J. von Hardenberg (2016-2018)
+*Julia version* - J. von Hardenberg, ISAC-CNR (2016-2018)
 
-*Matlab* version for climate downscaling - D. D'Onofrio and J. von Hardenberg (2014)
+*Matlab* version for climate downscaling - D. D'Onofrio and J. von Hardenberg, ISAC-CNR (2014)
