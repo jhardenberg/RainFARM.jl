@@ -5,7 +5,7 @@ RainFARM.jl is a Julia library and a collection of command-line interface tools 
 
 RainFARM (Rebora et al. 2006) is a metagaussian stochastic downscaling procedure based on the extrapolation of the coarse-scale Fourier power spectrum of a spatio-temporal precipitation field to small scales.
 
-## Requires: 
+## Requires 
 
 julia (>=5.0), cdo (>=1.5)
 
