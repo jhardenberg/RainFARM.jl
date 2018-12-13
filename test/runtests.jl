@@ -30,8 +30,16 @@ pr=rainfarm(prl,1.7,nf,1.;fglob=false, fsmooth=true, verbose=false);
 pra=agg(pr,nas,nt);
 eps1=(Statistics.mean(pra[:,:,1])-Statistics.mean(prl[:,:,1])).^2;
 @test eps1 < 0.005
+print("\nTesting auxiliary functions:\n")
+print("----------------------------\n")
 print("Testing fitslopex\n")
 fx=(1.:10.).^-2;
 sx=fitslopex(fx);
 eps1=abs(sx-1);
 @test eps1 < 1e-8
+print("Testing lon_lat_fine\n")
+lon=0:7; lat=0:7; nf=2;
+(lon_f,lat_f) = lon_lat_fine(lon, lat,nf)
+lon_c=collect(-0.25:0.5:7.25);
+eps1=sum((lon_c-lon_f).^2)
+@test eps1 < 1e-20
