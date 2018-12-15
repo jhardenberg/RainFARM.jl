@@ -15,6 +15,7 @@ end
 if(length(size(var))==2) 
       nt=1
       fnotime=1
+      tim=[0]
 else
       (ns,ns,nt)=size(var)
       fnotime=0
@@ -42,9 +43,9 @@ else
 end
 
 if(fnotime==0)
-timeatt= ncin.vars["time"].atts
 tim=NetCDF.readvar(ncin,"time");
 end
+timeatt= ncin.vars["time"].atts
 varatt= ncin.vars[varname].atts
 NetCDF.close(ncin)
 
@@ -60,17 +61,21 @@ end
 isfile(fname) ? rm(fname) : nothing
 
 if(length(size(lon))==1)
-if(fnotime==0)
-nccreate( fname, varname , "lon" , nsx, "lat", nsy, "time", tim[1:nt] ,timeatt, atts=varattr,mode=mode,t=NC_FLOAT);
+   if(fnotime==0)
+      nccreate( fname, varname , "lon" , nsx, "lat", nsy, "time", tim[1:nt] ,timeatt, atts=varattr,mode=mode,t=NC_FLOAT);
+   else
+      nccreate( fname, varname , "lon" , nsx, "lat", nsy, atts=varattr,mode=mode,t=NC_FLOAT);
+   end
+   nccreate( fname, "lon" , "lon" , nsx,  atts=lonatt,mode=mode,t=NC_FLOAT);
+   nccreate( fname, "lat" , "lat" , nsy,  atts=latatt,mode=mode,t=NC_FLOAT);
 else
-nccreate( fname, varname , "lon" , nsx, "lat", nsy, atts=varattr,mode=mode,t=NC_FLOAT);
-end
-nccreate( fname, "lon" , "lon" , nsx,  atts=lonatt,mode=mode,t=NC_FLOAT);
-nccreate( fname, "lat" , "lat" , nsy,  atts=latatt,mode=mode,t=NC_FLOAT);
-else
-nccreate( fname, varname , "x" , nsx, "y", nsy, "time", tim[1:nt] ,timeatt, atts=varattr,mode=mode,t=NC_FLOAT);
-nccreate( fname, "lon" , "x" , nsx, "y", nsy,  atts=lonatt,mode=mode,t=NC_FLOAT);
-nccreate( fname, "lat" , "x" , nsx, "y", nsy,  atts=latatt,mode=mode,t=NC_FLOAT);
+   if(fnotime==0)
+      nccreate( fname, varname , "x" , nsx, "y", nsy, "time", tim[1:nt] ,timeatt, atts=varattr,mode=mode,t=NC_FLOAT);
+   else
+      nccreate( fname, varname , "x" , nsx, "y", nsy, atts=varattr,mode=mode,t=NC_FLOAT);
+   end 
+   nccreate( fname, "lon" , "x" , nsx, "y", nsy,  atts=lonatt,mode=mode,t=NC_FLOAT);
+   nccreate( fname, "lat" , "x" , nsx, "y", nsy,  atts=latatt,mode=mode,t=NC_FLOAT);
 end
 
 ncwrite(var,fname,varname)

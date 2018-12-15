@@ -102,12 +102,12 @@ if(fsmooth)
   (prr,lon,lat)=read_netcdf2d("pr_remap_rr.nc","")
   ww=prr./smoothconv(prr,ns);
   write_netcdf2d(weightsfn,ww,lon_f,lat_f,varname,reffile)
-  run(`rm pr_remap_rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
+  run(`rm -f pr_remap_rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
 else
   run(`cdo -s gridboxmean,$nf,$nf pr_remap_rr.nc pr_remap_gbm_$rr.nc`)
   run(`cdo -s remapnn,pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc`)
   run(`cdo -s div pr_remap_rr.nc pr_remap_nn_$rr.nc $weightsfn`)
-  run(`rm pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
+  run(`rm -f pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
   inweight=weightsfn
 end
 else
@@ -125,6 +125,6 @@ run(`cdo -s div pr_remap_2_$rr.nc pr_remap_nn_$rr.nc neweights_$rr.nc`)
 
 run(`cdo -s div $inweight neweights_$rr.nc weightsn_$rr.nc`)
 run(`mv weightsn_$rr.nc $weightsfn`)
-run(`rm pr_remap_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc neweights_$rr.nc pr_remap_2_$rr.nc`)
+run(`rm -f pr_remap_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc neweights_$rr.nc pr_remap_2_$rr.nc`)
 end
 
