@@ -30,7 +30,7 @@ In the `tools` subdirectory (under .julia in your home) you will find the comman
 
 ## Documentation
 
-Please see the [full documentation](https://jhardenberg.github.io/RainFARM.jl/stable/) for a list of all available functions.
+Please see the [full documentation](https://jhardenberg.github.io/RainFARM.jl/dev/) for a list of all available functions.
 
 ## Scientific references
 
