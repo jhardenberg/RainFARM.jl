@@ -1,6 +1,6 @@
 # RainFARM
 ![RainFARM logo](/docs/src/assets/logo-small.png) 
-[![DOI](https://zenodo.org/badge/75199877.svg)](https://zenodo.org/badge/latestdoi/75199877) [![Build Status](https://travis-ci.org/jhardenberg/RainFARM.jl.svg?branch=master)](https://travis-ci.org/jhardenberg/RainFARM.jl) [![Appveyor build](https://ci.appveyor.com/api/projects/status/agoibqta7c88urfv?svg=true)](https://ci.appveyor.com/project/jhardenberg/rainfarm-jl) [![codecov.io](http://codecov.io/github/jhardenberg/RainFARM.jl/coverage.svg?branch=master)](http://codecov.io/github/jhardenberg/RainFARM.jl?branch=master)
+&nbsp; &nbsp; [![DOI](https://zenodo.org/badge/75199877.svg)](https://zenodo.org/badge/latestdoi/75199877) [![Build Status](https://travis-ci.org/jhardenberg/RainFARM.jl.svg?branch=master)](https://travis-ci.org/jhardenberg/RainFARM.jl) [![Appveyor build](https://ci.appveyor.com/api/projects/status/agoibqta7c88urfv?svg=true)](https://ci.appveyor.com/project/jhardenberg/rainfarm-jl) [![codecov.io](http://codecov.io/github/jhardenberg/RainFARM.jl/coverage.svg?branch=master)](http://codecov.io/github/jhardenberg/RainFARM.jl?branch=master)
 
 RainFARM.jl is a Julia library and a collection of command-line interface tools implementing the RainFARM (Rainfall Filtered Autoregressive Model) stochastic precipitation downscaling method. Adapted for climate downscaling according to (D'Onofrio et al. 2018) and with fine-scale orographic weights (Terzago et al. 2018).
 
