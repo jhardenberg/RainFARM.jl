@@ -15,11 +15,12 @@ julia (>=5.0), cdo (>=1.5)
 
 You will need an implementation of the [Julia language](https://julialang.org/) on your machine. 
 
-Launch julia and from the REPL do the following to install the package
-```
-using Pkg
-Pkg.clone("https://github.com/jhardenberg/RainFARM.jl")
-```
+RainFARM is a registered package, so to install it just launch julia and from the REPL type the following to install it:
+
+- in Julia >= 0.7: ```] add RainFARM```
+- In Julia 0.6: ```Pkg.add("RainFARM")```
+- If you wish to try the very latest development features from this repository do:
+```Using Pkg; Pkg.clone("https://github.com/jhardenberg/RainFARM.jl") ```
 (the `using Pkg`step is only needed for Julia versions >= 0.7)
 
 Test from the julia REPL calling `using RainFARM`
@@ -42,4 +43,4 @@ Please see the [full documentation](https://jhardenberg.github.io/RainFARM.jl/st
 
 *Julia version* - J. von Hardenberg, ISAC-CNR (2016-2018)
 
-*Matlab* version for climate downscaling - D. D'Onofrio and J. von Hardenberg, ISAC-CNR (2014)
+Earlier *Matlab* version for climate downscaling - D. D'Onofrio and J. von Hardenberg, ISAC-CNR (2014)
