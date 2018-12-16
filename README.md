@@ -15,7 +15,7 @@ julia (>=5.0), cdo (>=1.5)
 
 You will need an implementation of the [Julia language](https://julialang.org/) on your machine. 
 
-RainFARM is a registered package, so to install it just launch julia and from the REPL type the following to install it:
+RainFARM is a registered package, so to install it just launch julia and from the REPL type the following:
 
 - in Julia >= 0.7: ```] add RainFARM```
 - In Julia 0.6: ```Pkg.add("RainFARM")```
