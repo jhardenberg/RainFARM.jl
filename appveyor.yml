@@ -40,11 +40,7 @@ install:
 build_script:
 # Need to convert from shallow to complete for Pkg.clone to work
   - IF EXIST .git\shallow (git fetch --unshallow)
-#  - C:\projects\julia\bin\julia -e "Pkg.clone(pwd(), \"RainFARM\"); Pkg.build(\"RainFARM\")"
-  - echo "%JL_BUILD_SCRIPT%"
-  - C:\julia\bin\julia -e "%JL_BUILD_SCRIPT%"
+  - C:\projects\julia\bin\julia -e "(VERSION >= v\"0.7-\") && (using Pkg); Pkg.clone(pwd(), \"RainFARM\"); Pkg.build(\"RainFARM\")"
 
 test_script:
-  - echo "%JL_TEST_SCRIPT%"
-  - C:\julia\bin\julia -e "%JL_TEST_SCRIPT%"
-#  - C:\projects\julia\bin\julia -e "Pkg.test(\"RainFARM\")"
+  - C:\projects\julia\bin\julia -e "(VERSION >= v\"0.7-\") && (using Pkg); Pkg.test(\"RainFARM\")"
