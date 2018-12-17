@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RainFARM Julia module Documentation",
     "title": "RainFARM Julia module Documentation",
     "category": "section",
-    "text": "RainFARM.jl is a Julia library and a collection of command-line interface tools implementing the RainFARM (Rainfall Filtered Autoregressive Model) stochastic precipitation downscaling method adapted for climate models. Adapted for climate downscaling according to (D\'Onofrio et al. 2018) and with fine-scale origraphic weights (Terzago et al. 2018).RainFARM (Rebora et al. 2006) is a metagaussian stochastic downscaling procedure based on the extrapolation of the coarse-scale Fourier power spectrum  of a spatio-temporal precipitation field to small scales.  "
+    "text": "RainFARM.jl is a Julia library and a collection of command-line interface tools implementing the RainFARM (Rainfall Filtered Autoregressive Model) stochastic precipitation downscaling method adapted for climate models. Adapted for climate downscaling according to (D\'Onofrio et al. 2018) and with fine-scale orographic weights (Terzago et al. 2018).RainFARM (Rebora et al. 2006) is a metagaussian stochastic downscaling procedure based on the extrapolation of the coarse-scale Fourier power spectrum  of a spatio-temporal precipitation field to small scales.  "
 },
 
 {
