@@ -44,8 +44,8 @@ end
 
 if(fnotime==0)
 tim=NetCDF.readvar(ncin,"time");
-end
 timeatt= ncin.vars["time"].atts
+end
 varatt= ncin.vars[varname].atts
 NetCDF.close(ncin)
 
