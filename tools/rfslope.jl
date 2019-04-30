@@ -4,6 +4,7 @@
 using RainFARM
 using ArgParse
 using Compat, Compat.Printf
+using DelimitedFiles
 
 function parse_commandline()
     s = ArgParseSettings()
