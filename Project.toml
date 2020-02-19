@@ -1,7 +1,7 @@
 name = "RainFARM"
 uuid = "e9a4e08f-a0a3-5224-a821-6d0231c12d6b"
 authors = ["Jost von Hardenberg <jost.hardenberg@polito.it>"]
-version = "1.0.3"
+version = "1.0.4"
 
 [deps]
 ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
