@@ -1,7 +1,7 @@
 name = "RainFARM"
 uuid = "e9a4e08f-a0a3-5224-a821-6d0231c12d6b"
 authors = ["Jost von Hardenberg <jost.hardenberg@polito.it>"]
-version = "1.0.4"
+version = "1.0.3"
 
 [deps]
 ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
@@ -11,6 +11,11 @@ Interpolations = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
 NetCDF = "30363a11-5582-574a-97bb-aa9a979735b9"
 
 [compat]
+ArgParse = "0, 1"
+Compat = "0-3"
+FFTW = "0, 1"
+Interpolations = "0"
+NetCDF = "0"
 julia = "0.7, 1"
 
 [extras]
