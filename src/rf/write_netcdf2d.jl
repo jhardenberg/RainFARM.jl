@@ -81,8 +81,6 @@ end
 ncwrite(var,fname,varname)
 ncwrite(lon,fname,"lon")
 ncwrite(lat,fname,"lat")
-
-ncclose(fname)
 end
 
 

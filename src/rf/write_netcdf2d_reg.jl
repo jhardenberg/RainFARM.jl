@@ -31,8 +31,6 @@ nccreate( fname, "lat" , "lat" , nsy,  atts=latatt,mode=mode,t=NC_FLOAT);
 ncwrite(var,fname,varname)
 ncwrite(lon,fname,"lon")
 ncwrite(lat,fname,"lat")
-
-ncclose(fname)
 end
 
 
