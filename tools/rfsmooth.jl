@@ -2,16 +2,19 @@
 # Copyright (c) 2016, Jost von Hardenberg - ISAC-CNR, Italy
 using RainFARM
 using ArgParse
-using Compat, Compat.Printf
+using Compat
 
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
-        "--diameter", "-d"
-            help = "Smoothing diameter (in pixels, 2 sigma)"
+    @add_arg_table! s begin
+        "--radius", "-r"
+            help = "Smoothing radius (in grid units or pixels (if negative))"
             arg_type = Float64
-            default = 1.
+            default = 0.
+        "--gaussian", "-g"
+            help = "Use a Gaussian kernel instead of a top hat. The radius parameter mean sigma in that case."
+            action = :store_true
         "--varname", "-v"
             help = "Input variable name (in orofile)"
             arg_type = AbstractString 
@@ -34,7 +37,8 @@ function parse_commandline()
 end
 
 args = parse_commandline()
-diameter=args["diameter"]
+radius=args["radius"]
+fgauss=args["gaussian"]
 filein=args["infile"]
 fileout=args["outfile"]
 varname=args["varname"]
@@ -47,17 +51,36 @@ dxl=lonl0[2]-lonl0[1];
 end
 
 (tin,lonl,latl,varname)=read_netcdf2d(filein,varname);
-(nx,ny,nt)=size(tin,1,2,3)
+nx=size(tin,1)
+ny=size(tin,2)
+nt=size(tin,3)
 
-println("dx=",dxl)
-  nas=div(nx,diameter)
+if (fgauss && (nx!=ny))
+  println("Domain is ", nx, " by ", ny, " pixel")
+  println("If Gaussian smoothing is used then the domain should be square!") 
+  exit(1)
+end
 
-  println("Smoothing with diameter ",diameter," pixel (2 sigma)")
-  println("nas=",nas)
+if(radius>0)
+  nf2=div(radius,dxl)
+else
+  nf2=-radius
+end
 
-for i=1:nt
-#    println("t=",i)
+println("Original resolution: ", dxl)
+
+if (fgauss) 
+  nas=div(nx, nf2*2)
+  println("Gaussian smoothing, nas=",nas)
+  println("Smoothing with sigma ",nf2 ," pixel")
+  for i=1:nt
     tin[:,:,i]=smoothconv(tin[:,:,i],nas)
+  end
+else
+  println("Smoothing with radius ",nf2 ," pixel")
+  for i=1:nt
+    tin[:,:,i]=smooth(tin[:,:,i],nf2)
+  end
 end
 
 run(`cp $filein $fileout`)
