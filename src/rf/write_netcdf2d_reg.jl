@@ -12,7 +12,6 @@ latatt= ncin.vars["lat"].atts
 timeatt= ncin.vars["time"].atts
 varatt= ncin.vars[varname].atts
 tim=NetCDF.readvar(ncin,"time");
-NetCDF.close(ncin)
 
 #ncgetatt(filenc, "global", gatts)
 

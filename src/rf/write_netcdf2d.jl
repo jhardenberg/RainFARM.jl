@@ -47,7 +47,6 @@ tim=NetCDF.readvar(ncin,"time");
 timeatt= ncin.vars["time"].atts
 end
 varatt= ncin.vars[varname].atts
-NetCDF.close(ncin)
 
 #ncgetatt(filenc, "global", gatts)
 

@@ -40,7 +40,6 @@ if(haskey(nc.vars[varname].atts,"missing_value"))
     xmiss=convert(typeof(var[1,1,1]),xmiss)
     var[var .== xmiss] .= NaN;
 end
-NetCDF.close(nc)
 
 return var,lon,lat,varname
 end
