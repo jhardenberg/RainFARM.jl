@@ -22,10 +22,10 @@ function parse_commandline()
             help = "The input file to downscale"
             arg_type = AbstractString
             required = true
-        "varname"
+        "--varname", "-v"
             help = "Input variable name"
             arg_type = AbstractString
-            required = true
+            default = ""
     end
 	s.description = "Generates a sample file with a grid equal to the input file downscaled by a factor NF"
     return parse_args(s)
@@ -37,9 +37,9 @@ filenc = args["infile"]
 outfile = args["outfile"]
 varnc = args["varname"]
 
-println($"Reading file ", filenc)
+println("Reading file ", filenc)
 
-(pr, lon_mat, lat_mat) = read_netcdf2d(filenc, varnc)
+(pr, lon_mat, lat_mat, varnc) = read_netcdf2d(filenc, varnc)
 
 # Create the fine grid
 nss = size(pr)
