@@ -19,34 +19,31 @@
 
 __precompile__()
 module RainFARM
-export agg, fft3d, initmetagauss, gaussianize, metagauss, smoothconv, smoothspec
-export mergespec_spaceonly, downscale_spaceonly, lon_lat_fine, fitslopex
-export read_netcdf2d, write_netcdf2d, rainfarm, interpola, smooth
-export overwrite_netcdf2d, rfweights
+    export agg, fft3d, initmetagauss, gaussianize, metagauss, smoothconv, smoothspec
+    export mergespec_spaceonly, downscale_spaceonly, lon_lat_fine, fitslopex
+    export read_netcdf2d, write_netcdf2d, rainfarm, interpola, smooth
+    export overwrite_netcdf2d, rfweights
 
-using Interpolations, NetCDF, Compat
-using Compat.Statistics, Compat.Printf, Compat.SparseArrays
-if VERSION >= v"0.7.0-DEV.2005"
-    using FFTW
-end
+    using Interpolations, NetCDF, FFTW, ArgParse
+    using Statistics, Printf, SparseArrays
 
-include("rf/agg.jl")
-include("rf/smoothconv.jl")
-include("rf/smoothspec.jl")
-include("rf/smooth.jl")
-include("rf/fft3d.jl")
-include("rf/initmetagauss.jl")
-include("rf/gaussianize.jl")
-include("rf/metagauss.jl")
-include("rf/mergespec_spaceonly.jl")
-include("rf/downscale_spaceonly.jl")
-include("rf/lon_lat_fine.jl")
-include("rf/fitslopex.jl")
-include("rf/read_netcdf2d.jl")
-include("rf/write_netcdf2d.jl")
-include("rf/overwrite_netcdf2d.jl")
-include("rf/interpola.jl")
-include("rf/rainfarm.jl")
-include("rf/rfweights.jl")
+    include("rf/agg.jl")
+    include("rf/smoothconv.jl")
+    include("rf/smoothspec.jl")
+    include("rf/smooth.jl")
+    include("rf/fft3d.jl")
+    include("rf/initmetagauss.jl")
+    include("rf/gaussianize.jl")
+    include("rf/metagauss.jl")
+    include("rf/mergespec_spaceonly.jl")
+    include("rf/downscale_spaceonly.jl")
+    include("rf/lon_lat_fine.jl")
+    include("rf/fitslopex.jl")
+    include("rf/read_netcdf2d.jl")
+    include("rf/write_netcdf2d.jl")
+    include("rf/overwrite_netcdf2d.jl")
+    include("rf/interpola.jl")
+    include("rf/rainfarm.jl")
+    include("rf/rfweights.jl")
 
 end
