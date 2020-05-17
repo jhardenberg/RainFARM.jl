@@ -24,7 +24,7 @@ module RainFARM
     export read_netcdf2d, write_netcdf2d, rainfarm, interpola, smooth
     export overwrite_netcdf2d, rfweights
 
-    using Interpolations, NetCDF, FFTW, ArgParse
+    using Interpolations, NetCDF, FFTW
     using Statistics, Printf, SparseArrays
 
     include("rf/agg.jl")
