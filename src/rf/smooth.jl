@@ -5,17 +5,22 @@ Smoothen field `z` with a circular kernel of radius `sdim` using convolution
 """
 function smooth(zi, sdim)
 
+    println("Smoothin ....")
+    iinan = findall(isnan.(zi))
+    iinotnan = findall(.~isnan.(zi))
+    zi[iinan] .= 0.
+
     (nsx,nsy) = size(zi);
     #sdim=div(div(ns,nas),2);
 
-    mask = zeros(nsx, nsy);
     nsx2 = div(nsx, 2)
     nsy2 = div(nsy, 2)
+    mask = zeros(nsx, nsy);
 
     for i = 1:nsx
         for j = 1:nsy
-            kx = i-1;
-            ky = j-1;
+            kx = i-1
+            ky = j-1
             if (i>nsx2+1)
                 kx = i-nsx-1
             end
@@ -28,6 +33,14 @@ function smooth(zi, sdim)
             end
         end
     end 
-    zf = real(ifft(fft(mask).*fft(zi)))/sum(mask)
+    fm = fft(mask)
+    zf = real(ifft(fm.*fft(zi)))/sum(mask)
+    if length(iinan)>0
+        zi1 = deepcopy(zi)
+        zi1[iinotnan] .= 1.0
+        zf = zf./(real(ifft(fm.*fft(zi1)))/sum(mask))
+    end
+    zf[iinan] .= NaN
+
     return zf
 end
