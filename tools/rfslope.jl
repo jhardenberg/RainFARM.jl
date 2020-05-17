@@ -9,7 +9,7 @@ using DelimitedFiles
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "infile"
             help = "The input file to downscale"
             arg_type = AbstractString

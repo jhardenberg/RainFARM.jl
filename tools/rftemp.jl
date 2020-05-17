@@ -7,7 +7,7 @@ using Printf
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "--radius", "-r"
             help = "Smoothing radius (in grid units)"
             arg_type = Float64

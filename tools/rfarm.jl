@@ -17,7 +17,7 @@ using Printf
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "--slope", "-s"
             help = "spatial spectral slope"
             arg_type = Float64

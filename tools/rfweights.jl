@@ -18,7 +18,7 @@ using Printf
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "--nf", "-n"
             help = "Subdivisions for downscaling"
             arg_type = Int
