@@ -23,8 +23,8 @@ function parse_commandline()
         "--coord", "--box", "-b"
             help = "Coordinates of box in which to downscale [lon1 lon2 lat1 lat2]"
  	    nargs = 4
-            arg_type =  Float64
-	    default =  [ 7, 7.65, 45.35, 45.75 ]
+            arg_type =  Union{Float64, Nothing}
+	    default =  [nothing, nothing, nothing, nothing]
         "--orocoarse", "-o"
             help = "Coarse orography of original data"
             arg_type = AbstractString
@@ -65,14 +65,26 @@ lon2 = coord[2]
 lat1 = coord[3]
 lat2 = coord[4]
 
-println("Downscaling in box: ", coord[1], "/", coord[2], "/", coord[3], "/", coord[4])
-
 (tin0, lonl0, latl0) = read_netcdf2d(filein, varname)
 if length(size(lonl0))>1
     dxl = max(lonl0[2,1]-lonl0[1,1], lonl0[1,2]-lonl0[1,1])
+    if lon1 == nothing
+        lon1 = lonl0[1,1]
+        lon2 = lonl0[end,1]
+        lat1 = latl0[1,1]
+        lat2 = latl0[1,end]
+    end
 else
-i   dxl = lonl0[2]-lonl0[1]
+    dxl = lonl0[2]-lonl0[1]
+    if lon1 == nothing
+        lon1 = lonl0[1]
+        lon2 = lonl0[end]
+        lat1 = latl0[1]
+        lat2 = latl0[end]
+    end
 end
+
+println("Downscaling in box: ", lon1, "/", lon2, "/", lat1, "/", lat2)
 
 println("dx=", dxl)
 if radius==0
