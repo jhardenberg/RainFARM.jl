@@ -45,7 +45,7 @@ kmin = args["kmin"]
 #println("Size var:", size(pr)," size lon: ",size(lon_mat)," size lat: ", size(lat_mat))
 # Compute fft and slope
 (fxp, ftp, fs) = fft3d(pr)
-sx = fitslopex(fxp, kmin=kmin)
+sx = fitslope(fxp, kmin=kmin)
 #println("Computed spatial spectral slope: ",sx)
 println(sx)
 

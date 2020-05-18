@@ -20,7 +20,7 @@
 __precompile__()
 module RainFARM
     export agg, fft3d, initmetagauss, gaussianize, metagauss, smoothconv, smoothspec
-    export mergespec_spaceonly, downscale_spaceonly, lon_lat_fine, fitslopex
+    export mergespec_spaceonly, downscale_spaceonly, lon_lat_fine, fitslope
     export read_netcdf2d, write_netcdf2d, rainfarm, interpola, smooth
     export overwrite_netcdf2d, rfweights
 
@@ -38,7 +38,7 @@ module RainFARM
     include("rf/mergespec_spaceonly.jl")
     include("rf/downscale_spaceonly.jl")
     include("rf/lon_lat_fine.jl")
-    include("rf/fitslopex.jl")
+    include("rf/fitslope.jl")
     include("rf/read_netcdf2d.jl")
     include("rf/write_netcdf2d.jl")
     include("rf/overwrite_netcdf2d.jl")

@@ -1,9 +1,9 @@
 """
-    sx = fitslopex(fx; kmin=1)
+    sx = fitslope(fx; kmin=1)
 
 Return spectral slope (minus 1) of spatial spectrum `fx`.
 """
-function fitslopex(fx; kmin=1)
+function fitslope(fx; kmin=1)
     kmin = Int(kmin)
     xr = collect(1:length(fx))
     x = log.(xr[kmin:end])
@@ -13,4 +13,3 @@ function fitslopex(fx; kmin=1)
     sx = sx-1
     return sx
 end
-

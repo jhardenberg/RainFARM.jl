@@ -118,7 +118,7 @@ end
 if sx==0.
     # Compute fft3d and slope
     (fxp, ftp) = fft3d(pr)
-    sx = fitslopex(fxp, kmin=kmin)
+    sx = fitslope(fxp, kmin=kmin)
     println("Computed spatial spectral slope: ", sx)
 else
     println("Fixed spatial spectral slope: ", sx)
