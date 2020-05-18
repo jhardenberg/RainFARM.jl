@@ -111,7 +111,7 @@ end
 println("Remapping input data ...")
 run(`cdo -s -b F32 remapnn,orocut$rr.nc $filein input_nn$rr.nc`)
 (tin, lonl, latl, varname) = read_netcdf2d("input_nn$rr.nc", varname)
-oro = float(oro); # convert to float
+oro = float(oro) # convert to float
 (nx, ny, nt) = size(tin)
 
 nf2 = div(radius, abs(dxf))
@@ -122,7 +122,7 @@ if fileorocoarse==""
     oros = smooth(oro, nf2)
 else
     run(`cdo -s -b F32 remapnn,orocut$rr.nc $fileorocoarse orocut_coarse$rr.nc`)
-    (oroc, lonl, latl, orocname) = read_netcdf2d("orocut_coarse$rr.nc", "");
+    (oroc, lonl, latl, orocname) = read_netcdf2d("orocut_coarse$rr.nc", "")
     oros = smooth(oroc, nf2)
     run(`rm orocut_coarse$rr.nc`)
 end

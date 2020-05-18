@@ -10,12 +10,12 @@ function smooth(zi, sdim)
     iinotnan = findall(.~isnan.(zi))
     zi[iinan] .= 0.
 
-    (nsx,nsy) = size(zi);
-    #sdim=div(div(ns,nas),2);
+    (nsx,nsy) = size(zi)
+    #sdim=div(div(ns,nas),2)
 
     nsx2 = div(nsx, 2)
     nsy2 = div(nsy, 2)
-    mask = zeros(nsx, nsy);
+    mask = zeros(nsx, nsy)
 
     for i = 1:nsx
         for j = 1:nsy

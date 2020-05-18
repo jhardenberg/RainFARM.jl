@@ -43,7 +43,7 @@ function write_netcdf2d(fname, var, lon, lat, varname, filenc)
     end
 
     if(fnotime==0)
-        tim = NetCDF.readvar(ncin, "time");
+        tim = NetCDF.readvar(ncin, "time")
         timeatt = ncin.vars["time"].atts
     end
     varatt= ncin.vars[varname].atts

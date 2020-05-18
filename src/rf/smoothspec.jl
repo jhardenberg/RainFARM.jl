@@ -10,9 +10,9 @@ function smoothspec(zi, nas)
     iinotnan = findall(.~isnan.(zi))
     zi[iinan] = 0.
 
-    nss = size(zi);
-    ns = nss[1];
-    sdim = div(ns, nas); # the smoothing radius is one large scale pixel wide (setting the diameter to 1 pixel is wrong)
+    nss = size(zi)
+    ns = nss[1]
+    sdim = div(ns, nas) # the smoothing radius is one large scale pixel wide (setting the diameter to 1 pixel is wrong)
 
     kx = [collect(0:ns/2)' collect(-ns/2+1:-1)']'
     kx = kx*ones(1,ns)

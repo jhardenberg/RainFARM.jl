@@ -21,7 +21,7 @@ This function uses external system calls using the "cdo" command (https://code.m
 function rfweights(orofile, reffile, nf; weightsfn="", varname="", fsmooth=false)
 
     # Create a reference gridrf.nc file (same grid as rainfarm output files)
-    (pr, lon_mat, lat_mat) = read_netcdf2d(reffile, varname);
+    (pr, lon_mat, lat_mat) = read_netcdf2d(reffile, varname)
     # Create fine scale grid
     nss = size(pr)
     if (length(nss)>=3)

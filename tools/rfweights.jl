@@ -72,13 +72,13 @@ fsmooth = args["conv"]
 println("Creating weights from file ", orofile)
 
 # Create a reference gridrf.nc file (same grid as rainfarm output files)
-(pr, lon_mat, lat_mat)=read_netcdf2d(reffile, varname);
+(pr, lon_mat, lat_mat)=read_netcdf2d(reffile, varname)
 # Creo la griglia fine
 nss = size(pr)
 if length(nss)>=3
     pr = pr[:,:,1]
 end
-ns = nss[1];
+ns = nss[1]
 (lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf)
 
 rr = round.(Int, rand(1)*100000)

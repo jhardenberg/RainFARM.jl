@@ -8,17 +8,17 @@ function  read_netcdf2d(file, varname="")
 
     nc = NetCDF.open(file, mode=NC_NOWRITE)
     if( haskey(nc.vars,"lon") )
-        lat=ncread(file,"lat");
-        lon=ncread(file,"lon");
+        lat=ncread(file,"lat")
+        lon=ncread(file,"lon")
     elseif (haskey(nc.vars,"longitude"))
-        lat=ncread(file,"latitude");
-        lon=ncread(file,"longitude");
+        lat=ncread(file,"latitude")
+        lon=ncread(file,"longitude")
     elseif (haskey(nc.vars,"x"))
-        lat=ncread(file,"y");
-        lon=ncread(file,"x");
+        lat=ncread(file,"y")
+        lon=ncread(file,"x")
     elseif (haskey(nc.vars,"X"))
-        lat=ncread(file,"Y");
-        lon=ncread(file,"X");
+        lat=ncread(file,"Y")
+        lon=ncread(file,"X")
     else
         println("Input file does not contain lon or longitude dimensional variables")
         quit(1)

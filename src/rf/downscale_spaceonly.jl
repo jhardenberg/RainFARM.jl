@@ -14,11 +14,11 @@ function downscale_spaceonly(r, f, weight=1.; fglob=false, fsmooth=false)
     rs = r
 
     # Gaussianize
-    # Alternative: rg=log(rs);
+    # Alternative: rg=log(rs)
     rg = gaussianize(rs)
 
     # Prepare small scale random fields
-    g = metagauss(f);
+    g = metagauss(f)
 
     # fix the amplitude of f
     (pstg, pstgt) = fft3d(g)
@@ -57,9 +57,9 @@ function downscale_spaceonly(r, f, weight=1.; fglob=false, fsmooth=false)
         ri = interpola(r, ns, 1)
         ri[ii] .= NaN
         raa = smoothconv(ri, nas)
-        fm = raa./fma.*fm; #pa=p aggregated at L0 and T0
+        fm = raa./fma.*fm  #pa=p aggregated at L0 and T0
     else
-        #fm=mergespec_spaceonly(fm,raa,div(nas,2));
+        #fm=mergespec_spaceonly(fm,raa,div(nas,2))
         raa = agg(r, nas, 1)
         fma = agg(fm, nas, 1)
         ca=raa./fma #pa=p aggregated at L0 and T0

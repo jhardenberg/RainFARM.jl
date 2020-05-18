@@ -90,7 +90,7 @@ println("Downscaling ", filenc)
 (pr, lon_mat, lat_mat, varname)=read_netcdf2d(filenc, varname)
 
 # Crete the fine grid
-(lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat, nf);
+(lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat, nf)
 
 ns=size(lon_f)
 println("Output size: ", ns)
@@ -130,7 +130,7 @@ end
 
 if weightsnc!=""
     println("Using weights file ", weightsnc)
-    (ww, lon_mat2 ,lat_mat2) = read_netcdf2d(weightsnc, "");
+    (ww, lon_mat2, lat_mat2) = read_netcdf2d(weightsnc, "")
 else
     ww = 1.
 end

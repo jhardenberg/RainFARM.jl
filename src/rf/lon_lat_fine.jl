@@ -16,14 +16,14 @@ function lon_lat_fine(lon_mat, lat_mat, nf)
         yf = (0.5+1/(2*nf)):1/nf:(nlat+0.5-1/(2*nf))
         knots = (collect(yc),collect(xc))
 
-        itplon = extrapolate(interpolate(knots, lon_mat, Gridded(Linear())), Line());
-        itplat = extrapolate(interpolate(knots, lat_mat, Gridded(Linear())), Line());
+        itplon = extrapolate(interpolate(knots, lon_mat, Gridded(Linear())), Line())
+        itplat = extrapolate(interpolate(knots, lat_mat, Gridded(Linear())), Line())
 
         lon_f = itplon(collect(yf),collect(xf))
         lat_f = itplat(collect(yf),collect(xf))
     else
-        (nlat,) = size(lat_mat);
-        (nlon,) = size(lon_mat);
+        (nlat,) = size(lat_mat)
+        (nlon,) = size(lon_mat)
 
         xc = 1:nlon
         yc = 1:nlat
@@ -33,8 +33,8 @@ function lon_lat_fine(lon_mat, lat_mat, nf)
         knotsx = collect(xc)
         knotsy = collect(yc)
 
-        itplon = extrapolate(interpolate((knotsx,), lon_mat, Gridded(Linear())), Line());
-        itplat = extrapolate(interpolate((knotsy,), lat_mat, Gridded(Linear())), Line());
+        itplon = extrapolate(interpolate((knotsx,), lon_mat, Gridded(Linear())), Line())
+        itplat = extrapolate(interpolate((knotsy,), lat_mat, Gridded(Linear())), Line())
 
         lon_f = itplon(collect(xf))
         lat_f = itplat(collect(yf))

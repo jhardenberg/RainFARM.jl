@@ -25,8 +25,8 @@ function rainfarm(r, slope, nf, weight=1.; fglob=false, fsmooth=false, verbose=f
     ns = nas*nf
     nt = 1; nat = 1 
     # This is the space_only version, downscaling nt is 1
-    #(ns, ns1)=size(lon); ns=max(ns,ns1); 
-    #ns=size(lon); ns=ns[1]; 
+    #(ns, ns1)=size(lon); ns=max(ns,ns1)
+    #ns=size(lon); ns=ns[1]
     #Recover ns (the fine scale res) from lon; we assume that RF works on squares, nlon=nlat
     f = initmetagauss(slope, 1, ns, 1)
     rd = zeros(ns, ns, ntime)

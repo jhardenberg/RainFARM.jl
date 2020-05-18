@@ -7,9 +7,9 @@ function metagauss(f)
 
     (ns, ns, nt) = size(f)
     #	phases as fft of a gaussian noise random field
-    #   ph=zeros(ns,ns,nt,'single');
+    #   ph=zeros(ns,ns,nt,'single')
 
-    ph = zeros(ns, ns, nt);
+    ph = zeros(ns, ns, nt)
     for i = 1:nt
         ph[:,:,i] = randn(ns,ns)
     end

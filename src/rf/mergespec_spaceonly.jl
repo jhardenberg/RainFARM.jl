@@ -15,13 +15,13 @@ function mergespec_spaceonly(ra, f, kmax)
    
     DFTr = fft(ra)
 
-    DFTr = fftshift(DFTr); #centered fft
-    DFTf = fftshift(DFTf); #centered fft
+    DFTr = fftshift(DFTr) #centered fft
+    DFTf = fftshift(DFTf) #centered fft
     DFTfm = zeros(Complex{Float64}, nx, nx)
     DFTr2 = zeros(Complex{Float64}, nax+1, nax+1)
 
-    #DFTr[nax+1,:,:]=NaN;
-    #DFTr[:,nax+1,:]=NaN;
+    #DFTr[nax+1,:,:]=NaN
+    #DFTr[:,nax+1,:]=NaN
     DFTr2[1:nax,1:nax] = DFTr[:,:]
     DFTr2[nax+1,1:nax] = conj(DFTr[1,:])
     DFTr2[1:nax,nax+1] = conj(DFTr[:,1])
