@@ -13,12 +13,12 @@
 
 using RainFARM
 using ArgParse
-using Compat, Compat.Printf
+using Printf
 
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "--nf", "-n"
             help = "Subdivisions for downscaling"
             arg_type = Int
@@ -52,79 +52,78 @@ function parse_commandline()
             help = "conserve precipitation using convolution"
     end
 
-    s.description="Create weights for RainFARM downscaling"
-    s.version="0.1"
-    s.add_version=true
+    s.description = "Create weights for RainFARM downscaling"
+    s.version = "0.1"
+    s.add_version = true
 
     return parse_args(s)
 end
 
 args = parse_commandline()
-nf=args["nf"]
-reffile=args["reffile"]
-orofile=args["orofile"]
-weightsfn=args["weights"]
-varname=args["varname"]
-pass1fn=args["pass2"]
-inweight=args["inweight"]
-fsmooth=args["conv"]
+nf = args["nf"]
+reffile = args["reffile"]
+orofile = args["orofile"]
+weightsfn = args["weights"]
+varname = args["varname"]
+pass1fn = args["pass2"]
+inweight = args["inweight"]
+fsmooth = args["conv"]
 
-println("Creating weights from file ",orofile)
+println("Creating weights from file ", orofile)
 
 # Create a reference gridrf.nc file (same grid as rainfarm output files)
-(pr,lon_mat,lat_mat)=read_netcdf2d(reffile, varname);
+(pr, lon_mat, lat_mat)=read_netcdf2d(reffile, varname)
 # Creo la griglia fine
-nss=size(pr)
-if (length(nss)>=3)
-    pr=pr[:,:,1]
+nss = size(pr)
+if length(nss)>=3
+    pr = pr[:,:,1]
 end
-ns=nss[1];
-(lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf);
+ns = nss[1]
+(lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf)
 
-rr=round.(Int,rand(1)*100000)
+rr = round.(Int, rand(1)*100000)
 
-println("Output size: ",size(lon_f))
-if(varname=="")
-   varname="pr"
+println("Output size: ", size(lon_f))
+if varname==""
+   varname = "pr"
    run(`cdo -s  setname,pr $reffile reffile_rr.nc`)
-   reffile="reffile_rr.nc"
+   reffile = "reffile_rr.nc"
 end
 
 # The rest is done in CDO
 
-if(inweight=="")
-println("Computing weights")
-write_netcdf2d("gridrf.nc",reshape(pr,ns,ns,1),lon_f,lat_f,varname,reffile)
-run(`cdo -s timmean $orofile pr_orofile_$rr.nc`)
-run(`cdo -s -f nc copy gridrf.nc gridrf_2_$rr.nc`)
-run(`cdo -s -f nc remapbil,gridrf_2_$rr.nc pr_orofile_$rr.nc pr_remap_rr.nc`)
-if(fsmooth)
-  (prr,lon,lat)=read_netcdf2d("pr_remap_rr.nc","")
-  ww=prr./smoothconv(prr,ns);
-  write_netcdf2d(weightsfn,ww,lon_f,lat_f,varname,reffile)
-  run(`rm -f pr_remap_rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
+if inweight==""
+    println("Computing weights")
+    write_netcdf2d("gridrf.nc", reshape(pr, ns, ns, 1), lon_f, lat_f, varname, reffile)
+    run(`cdo -s timmean $orofile pr_orofile_$rr.nc`)
+    run(`cdo -s -f nc copy gridrf.nc gridrf_2_$rr.nc`)
+    run(`cdo -s -f nc remapbil,gridrf_2_$rr.nc pr_orofile_$rr.nc pr_remap_rr.nc`)
+    if fsmooth
+        (prr, lon, lat) = read_netcdf2d("pr_remap_rr.nc", "")
+        ww = prr./smoothconv(prr, ns)
+        write_netcdf2d(weightsfn, ww, lon_f, lat_f, varname, reffile)
+        run(`rm -f pr_remap_rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
+    else
+        run(`cdo -s gridboxmean,$nf,$nf pr_remap_rr.nc pr_remap_gbm_$rr.nc`)
+        run(`cdo -s remapnn,pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc`)
+        run(`cdo -s div pr_remap_rr.nc pr_remap_nn_$rr.nc $weightsfn`)
+        run(`rm -f pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
+        inweight = weightsfn
+    end
 else
-  run(`cdo -s gridboxmean,$nf,$nf pr_remap_rr.nc pr_remap_gbm_$rr.nc`)
-  run(`cdo -s remapnn,pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc`)
-  run(`cdo -s div pr_remap_rr.nc pr_remap_nn_$rr.nc $weightsfn`)
-  run(`rm -f pr_remap_rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc pr_orofile_$rr.nc gridrf.nc gridrf_2_$rr.nc reffile_rr.nc`)
-  inweight=weightsfn
-end
-else
-println("Correcting weights in ",inweight)
+    println("Correcting weights in ", inweight)
 end
 
-if(pass1fn!="")
-println("2-pass weighting using: ",pass1fn)
+if pass1fn!=""
+    println("2-pass weighting using: ",pass1fn)
 
-run(`cdo -s timmean $pass1fn pr_remap_$rr.nc`)
-run(`cdo -s gridboxmean,$nf,$nf pr_remap_$rr.nc pr_remap_gbm_$rr.nc`)
-run(`cdo -s -f nc copy pr_remap_$rr.nc pr_remap_2_$rr.nc`)
-run(`cdo -s remapnn,pr_remap_2_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc`)
-run(`cdo -s div pr_remap_2_$rr.nc pr_remap_nn_$rr.nc neweights_$rr.nc`)
+    run(`cdo -s timmean $pass1fn pr_remap_$rr.nc`)
+    run(`cdo -s gridboxmean,$nf,$nf pr_remap_$rr.nc pr_remap_gbm_$rr.nc`)
+    run(`cdo -s -f nc copy pr_remap_$rr.nc pr_remap_2_$rr.nc`)
+    run(`cdo -s remapnn,pr_remap_2_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc`)
+    run(`cdo -s div pr_remap_2_$rr.nc pr_remap_nn_$rr.nc neweights_$rr.nc`)
 
-run(`cdo -s div $inweight neweights_$rr.nc weightsn_$rr.nc`)
-run(`mv weightsn_$rr.nc $weightsfn`)
-run(`rm -f pr_remap_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc neweights_$rr.nc pr_remap_2_$rr.nc`)
+    run(`cdo -s div $inweight neweights_$rr.nc weightsn_$rr.nc`)
+    run(`mv weightsn_$rr.nc $weightsfn`)
+    run(`rm -f pr_remap_$rr.nc pr_remap_gbm_$rr.nc pr_remap_nn_$rr.nc neweights_$rr.nc pr_remap_2_$rr.nc`)
 end
-

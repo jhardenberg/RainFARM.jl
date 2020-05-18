@@ -3,13 +3,13 @@
 
 using RainFARM
 using ArgParse
-using Compat, Compat.Printf
+using Printf
 using DelimitedFiles
 
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "infile"
             help = "The input file to downscale"
             arg_type = AbstractString
@@ -28,42 +28,42 @@ function parse_commandline()
             default = 1
     end
 
-    s.description="Estimation of spatial spectral slope for RainFARM downscaling"
+    s.description = "Estimation of spatial spectral slope for RainFARM downscaling"
 
     return parse_args(s)
 end
 
 args = parse_commandline()
-filenc=args["infile"]
-varnc=args["varname"]
-outfile=args["outfile"]
-kmin=args["kmin"]
+filenc = args["infile"]
+varnc = args["varname"]
+outfile = args["outfile"]
+kmin = args["kmin"]
 
 #println("Estimating slope ",filenc)
 
-(pr,lon_mat,lat_mat)=read_netcdf2d(filenc, varnc);
+(pr, lon_mat, lat_mat) = read_netcdf2d(filenc, varnc)
 #println("Size var:", size(pr)," size lon: ",size(lon_mat)," size lat: ", size(lat_mat))
-# Calcolo fft3d e slope
-(fxp,ftp,fs)=fft3d(pr);
-sx=fitslopex(fxp,kmin=kmin);
+# Compute fft and slope
+(fxp, ftp, fs) = fft3d(pr)
+sx = fitslope(fxp, kmin=kmin)
 #println("Computed spatial spectral slope: ",sx)
 println(sx)
 
 if outfile!="" 
-   nk=length(fxp[:])
-   k=collect(1:nk)
-   aa=zeros(nk,2)
-   aa[:,1]=k
-   aa[:,2]=fxp
-   fname="$outfile.s.dat"
-   writedlm(fname,aa)
-   fname="$outfile.t.dat"
-   nw=length(ftp[:])
-   w=collect(1:nw)
-   aa=zeros(nw,2)
-   aa[:,1]=w
-   aa[:,2]=ftp
-   writedlm(fname,aa)
-   fname="$outfile.2d.dat"
-   writedlm(fname,fs)
+   nk = length(fxp[:])
+   k = collect(1:nk)
+   aa = zeros(nk, 2)
+   aa[:,1] = k
+   aa[:,2] = fxp
+   fname = "$outfile.s.dat"
+   writedlm(fname, aa)
+   fname = "$outfile.t.dat"
+   nw = length(ftp[:])
+   w = collect(1:nw)
+   aa = zeros(nw,2)
+   aa[:,1] = w
+   aa[:,2] = ftp
+   writedlm(fname, aa)
+   fname = "$outfile.2d.dat"
+   writedlm(fname, fs)
 end

@@ -4,12 +4,12 @@
 
 using RainFARM
 using ArgParse
-using Compat, Compat.Printf
+using Printf
 
 function parse_commandline()
     s = ArgParseSettings()
 
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "--nf", "-n"
             help = "Subdivisions for downscaling [default: 2]"
             arg_type = Int
@@ -22,35 +22,34 @@ function parse_commandline()
             help = "The input file to downscale"
             arg_type = AbstractString
             required = true
-        "varname"
+        "--varname", "-v"
             help = "Input variable name"
             arg_type = AbstractString
-            required = true
+            default = ""
     end
-	s.description="Generates a sample file with a grid equal to the input file downscaled by a factor NF"
+	s.description = "Generates a sample file with a grid equal to the input file downscaled by a factor NF"
     return parse_args(s)
 end
 
 args = parse_commandline()
-nf=args["nf"]
-filenc=args["infile"]
-outfile=args["outfile"]
-varnc=args["varname"]
+nf = args["nf"]
+filenc = args["infile"]
+outfile = args["outfile"]
+varnc = args["varname"]
 
-println("Reading file ",filenc)
+println("Reading file ", filenc)
 
-(pr,lon_mat,lat_mat)=read_netcdf2d(filenc, varnc);
+(pr, lon_mat, lat_mat, varnc) = read_netcdf2d(filenc, varnc)
 
-# Creo la griglia fine
-nss=size(pr)
-if (length(nss)>=3)
-    pr=pr[:,:,1]
+# Create the fine grid
+nss = size(pr)
+if length(nss)>=3
+    pr = pr[:,:,1]
 end
-ns=nss[1];
+ns = nss[1]
 
-(lon_f, lat_f)=lon_lat_fine(lon_mat, lat_mat,nf);
+(lon_f, lat_f) = lon_lat_fine(lon_mat, lat_mat,nf)
 
-println("Output size: ",size(lon_f))
+println("Output size: ", size(lon_f))
 
-write_netcdf2d(outfile,reshape(pr,ns,ns,1),lon_f,lat_f,varnc,filenc)
-
+write_netcdf2d(outfile, reshape(pr, ns ,ns ,1), lon_f, lat_f, varnc, filenc)
