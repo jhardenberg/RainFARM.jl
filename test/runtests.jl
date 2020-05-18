@@ -28,9 +28,9 @@ eps1 = (Statistics.mean(pra[:,:,1])-Statistics.mean(prl[:,:,1])).^2
 @test eps1 < 0.005
 print("\nTesting auxiliary functions:\n")
 print("----------------------------\n")
-print("Testing fitslopex\n")
+print("Testing fitslope\n")
 fx = (1.:10.).^-2
-sx = fitslopex(fx)
+sx = fitslope(fx)
 eps1 = abs(sx-1)
 @test eps1 < 1e-8
 print("Testing lon_lat_fine\n")
