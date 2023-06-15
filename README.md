@@ -14,7 +14,7 @@ RainFARM (Rebora et al. 2006) is a metagaussian stochastic downscaling procedure
 
 ## Requires 
 
-julia (>=5.0), cdo (>=1.5)
+julia (>=1.5.0), cdo (>=1.5)
 
 *Julia packages*: Interpolations, ArgParse, NetCDF
 
