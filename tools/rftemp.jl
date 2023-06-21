@@ -20,17 +20,20 @@ function parse_commandline()
             help = "Input variable name (in orofile)"
             arg_type = AbstractString 
             default = "" 
+        "--climatology", "-c"
+            help = "Use a fine-scale climatology instead of orography"
+            action = :store_true
         "--coord", "--box", "-b"
             help = "Coordinates of box in which to downscale [lon1 lon2 lat1 lat2]"
- 	    nargs = 4
+ 	        nargs = 4
             arg_type =  Union{Float64, Nothing}
-	    default =  [nothing, nothing, nothing, nothing]
+	        default =  [nothing, nothing, nothing, nothing]
         "--orocoarse", "-o"
             help = "Coarse orography of original data"
             arg_type = AbstractString
             default = ""
         "orofile"
-            help = "The input file to use for orography"
+            help = "The input file to use for orography or the reference fine-scale climatology if -c is used"
             arg_type = AbstractString
             required = true
         "infile"
@@ -59,6 +62,7 @@ fileoro = args["orofile"]
 fileorocoarse = args["orocoarse"]
 varname = args["varname"]
 coord = args["coord"]
+fclim = args["climatology"]
 
 lon1 = coord[1]
 lon2 = coord[2]
@@ -117,18 +121,23 @@ oro = float(oro) # convert to float
 nf2 = div(radius, abs(dxf))
 println("Smoothing radius = ", radius, " = ", nf2, " pixel")
 
-println("Preparing correction ...")
-if fileorocoarse==""
+if fclim
+    println("Using bias-correction based on climatology ...")
     oros = smooth(oro, nf2)
+    oro = oro-oros
 else
-    run(`cdo -s -b F32 remapnn,orocut$rr.nc $fileorocoarse orocut_coarse$rr.nc`)
-    (oroc, lonl, latl, orocname) = read_netcdf2d("orocut_coarse$rr.nc", "")
-    oros = smooth(oroc, nf2)
-    run(`rm orocut_coarse$rr.nc`)
+    println("Using lapse-rate correction ...")
+    if fileorocoarse==""
+        oros = smooth(oro, nf2)
+    else
+        run(`cdo -s -b F32 remapnn,orocut$rr.nc $fileorocoarse orocut_coarse$rr.nc`)
+        (oroc, lonl, latl, orocname) = read_netcdf2d("orocut_coarse$rr.nc", "")
+        oros = smooth(oroc, nf2)
+        run(`rm orocut_coarse$rr.nc`)
+    end
+    #println("oro=",mean(oro)," oros=",mean(oros))
+    oro = -(oro-oros)*lapse/1000.
 end
-#println("oro=",mean(oro)," oros=",mean(oros))
-oro = -(oro-oros)*lapse/1000.
-
 write_netcdf2d("orocorr_temp$rr.nc", oro, lonl, latl, oroname, "orocut$rr.nc")
 run(`cdo -s sellonlatbox,$lon1,$lon2,$lat1,$lat2 orocorr_temp$rr.nc orocorr$rr.nc `)
 
