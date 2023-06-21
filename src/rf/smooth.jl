@@ -5,7 +5,6 @@ Smoothen field `z` with a circular kernel of radius `sdim` using convolution
 """
 function smooth(zi, sdim)
 
-    println("Smoothin ....")
     iinan = findall(isnan.(zi))
     iinotnan = findall(.~isnan.(zi))
     zi[iinan] .= 0.
